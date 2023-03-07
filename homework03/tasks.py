@@ -1,7 +1,7 @@
 
 # 1. Використовуючи функцію print, надрукувати фразу “I love Python” 42 рази.
 print("Task 1:")
-print("I love Python\n"*42)
+print("I love Python\n" * 42)
 
 # 2. Створити змінну age_in_month, надавши їй значення вашого поточного віку в місяцях.
 print("\nTask 2:")
