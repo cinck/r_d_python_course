@@ -38,5 +38,5 @@ print(f"Is my number == 1 ?  -{new_var == 1}")
 #   значення якої має бути “256”
 print("\nTask 6:")
 a, b, c = 2, 5, 6
-d = int(str(a)+str(b)+str(c))
+d = int(str(a) + str(b) + str(c))
 print(f"d = {d}")
