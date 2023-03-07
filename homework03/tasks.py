@@ -28,11 +28,11 @@ print(my_age)
 #   і перевірити вивід в інтерпретаторі.
 print("\nTask 5:")
 new_var = 1
-print(f"My number == \'1\' is {new_var == '1'}")
-print(f"My number > 2 is {new_var > 2}")
-print(f"My number < 5 is {new_var < 5}")
-print(f"My number != 1 is {new_var != 1}")
-print(f"My number == 1 is {new_var == 1}")
+print(f"Is my number == \'1\' ?  -{new_var == '1'}")
+print(f"Is my number > 2 ?  -{new_var > 2}")
+print(f"Is my number < 5 ?  -{new_var < 5}")
+print(f"Is my number != 1 ?  -{new_var != 1}")
+print(f"Is my number == 1 ?  -{new_var == 1}")
 
 # 6. Створити змінні a=2, b=5, c=6. На основі цих змінних створити змінну d,
 #   значення якої має бути “256”
