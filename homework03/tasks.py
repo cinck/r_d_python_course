@@ -10,7 +10,7 @@ print(age_in_month)
 
 # 3. Створити змінну age_in_years, в яку записати ваш вік в роках на основі попередньої змінної.
 print("\nTask 3:")
-age_in_years = age_in_month//12
+age_in_years = age_in_month // 12
 print(age_in_years)
 
 # 4. Створити змінну my_age, яка буде містити рядок “Му name is … I’m … years old”,
