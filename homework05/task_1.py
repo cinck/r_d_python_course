@@ -6,33 +6,31 @@
 
 user_input = ""
 while user_input.lower() != "exit":
-    print("----------------------------------------")
+    print("------------------------------------------------")
+
+    user_input = input("Please enter your data or type 'exit' to finish: -> ")
+
+    if user_input.lower() == "exit" or user_input == "":
+        continue
+
+    print("------------------------------------------------")
 
     for char in user_input:
-        char_type = ""
-        char_property = ""
 
         if char.isdigit():
-            char_type = "number"
-            char_property = "an odd"
+            odd_or_even = "odd"
             if int(char) % 2 == 0:
-                char_property = "an even"
+                odd_or_even = "even"
+            print(f"'{char}' is an {odd_or_even} number.")
 
         elif char.isalpha():
-            char_type = "letter"
-            char_property = "an upper case"
+            upper_or_lower = "an upper"
             if char.islower():
-                char_property = "a lower case"
+                upper_or_lower = "a lower"
+            print(f"'{char}' is {upper_or_lower} case letter.")
 
         elif char.isspace():
-            char_type = "space"
-            char_property = "a"
+            print(f"'{char}' is a space.")
 
         else:
-            char_type = "symbol"
-            char_property = "a"
-
-        print(f"'{char}' is {char_property} {char_type}")
-
-    print("----------------------------------------")
-    user_input = input("Please enter your data or type 'exit' to finish: -> ")
+            print(f"'{char}' is a symbol.")
