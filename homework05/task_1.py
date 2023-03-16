@@ -1,5 +1,8 @@
-# This program analyzes every character of the user's keyboard entry.
-# To finish program from running type 'exit'
+# ========= The character analyzing program =========
+# This program analyzes and describes every character
+# of the user's keyboard entry.
+#  ! To finish program from running type 'exit' !
+# ===================================================
 
 user_input = ""
 while user_input.lower() != "exit":
