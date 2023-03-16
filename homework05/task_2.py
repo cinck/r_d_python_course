@@ -11,13 +11,13 @@ print("The infinite loop start is in ..")
 
 # Countdown
 for i in ["FIVE", "FOUR", "THREE", "TWO", "ONE"]:
-    sleep(1)
+    sleep(1.25)
     print(f". {i} !")
-    sleep(0.5)
+
+sleep(1)
 print("=======< Launch! >=======")
 
 # THE LOOP!
 while True:
-    sleep(2.1)
+    sleep(4.2)
     print("I love Python!")
-    sleep(2.1)
