@@ -1,20 +1,22 @@
-
+# ======= TASK 4 ======
 # Program that reads input data from user and determines whether it is whole number, single word or none of them.
 # It counts letters in word, checks if number is even or odd.
 
 # Cheering up
 print("Lets go!")
 
+# ===== TASK 01 ========
 # Waiting for data entry
 user_input = input("Please type something here: -> ")
 
-# Here goes some magic
+# Task3: If user's entry is a word, counts number of letters.
 if user_input.isalpha():
     if len(user_input) != 1:
         print(f"It is a word '{user_input}' which consists of {len(user_input)} letters.")
     else:
         print(f"It is only single letter '{user_input}'.")
 
+# Task 2: If user's entry is a number, determines it's odd or even.
 elif user_input.isdigit():
     if int(user_input) % 2 == 0:
         odd_or_even = "even"
