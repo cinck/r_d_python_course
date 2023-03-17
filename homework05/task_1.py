@@ -10,7 +10,7 @@ while user_input.lower() != "exit":
 
     user_input = input("Please enter your data or type 'exit' to finish: -> ")
 
-    if user_input.lower() == "exit" or user_input == "":
+    if not user_input or user_input.lower() == "exit":
         continue
 
     print("------------------------------------------------")
