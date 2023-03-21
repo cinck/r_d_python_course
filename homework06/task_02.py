@@ -1,3 +1,10 @@
+# +++++++ ADDING PROGRAM +++++++++
+# User can choose text elements or numbers must be added together.
+# Numbers are added arithmetically.
+# Text elements are combined in single string.
+
+# HW Task 2: Function that returns sum of infinite number of arguments.
+# First argument 'datatype' ("text" or "numbers") must be specified.
 def add_all_args(datatype="numbers", *args):
     if not args:
         return None
@@ -15,7 +22,7 @@ def add_all_args(datatype="numbers", *args):
 
     return result
 
-
+# User's data entry
 def enter_elements(datatype):
     entry = True
     values = []
@@ -36,7 +43,7 @@ def enter_elements(datatype):
                 values.append(int(entry))
     return values
 
-
+# Main function allows to select type of data to operate and displays result.
 def main():
     print("Do you want to add text or numbers?")
     print("'1' - numbers\n'2' - text")
@@ -58,7 +65,6 @@ def main():
 
     print(f"RESULT : {add_all_args(selected_type, *all_elements)}")
 
-#    print(add_all_args(selected, *all_elements))
     print("--------------------------------------------------")
 
     if input("Type 'R' to restart or anything else to finish: -> ").lower() == "r":
@@ -69,4 +75,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    add_all_args()
