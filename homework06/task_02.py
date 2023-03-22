@@ -24,8 +24,9 @@ def add_all_args(datatype="numbers", *args: int | str):
     return result
 
 
-# User's data entry
-def enter_elements(datatype):
+# User's data entry. Collects single int or str type entered elements and returns list of entered values.
+# Numbers for default. Pass datatype = "text" to switch to str.
+def enter_elements(datatype="numbers"):
     entry = True
     values = []
     print("--------------------------------------------------")
