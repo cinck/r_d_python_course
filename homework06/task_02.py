@@ -5,6 +5,7 @@
 
 # HW Task 2: Function that returns sum of infinite number of arguments.
 # First argument 'datatype' ("text" or "numbers") must be specified.
+# String or Numeric *args should be passed accordingly.
 def add_all_args(datatype="numbers", *args):
     if not args:
         return None
@@ -21,6 +22,7 @@ def add_all_args(datatype="numbers", *args):
         result += item
 
     return result
+
 
 # User's data entry
 def enter_elements(datatype):
@@ -42,6 +44,7 @@ def enter_elements(datatype):
             else:
                 values.append(int(entry))
     return values
+
 
 # Main function allows to select type of data to operate and displays result.
 def main():
@@ -70,7 +73,6 @@ def main():
     if input("Type 'R' to restart or anything else to finish: -> ").lower() == "r":
         print("--------------------------------------------------")
         main()
-
 
 
 if __name__ == "__main__":
