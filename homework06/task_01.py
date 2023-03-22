@@ -2,7 +2,7 @@
 # User can entry number and power values for calculation.
 # Note only natural numbers are accepted for both numbers and powers.
 
-# HW.Task 1: Function that raises number to power from two arguments.
+# <HW> Task 1: Function that raises number to power from two arguments.
 def raise_to_power(number, power):
     return number ** power
 

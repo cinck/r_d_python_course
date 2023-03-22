@@ -3,7 +3,7 @@
 # Numbers are added arithmetically.
 # Text elements are combined in single string.
 
-# HW Task 2: Function that returns sum of infinite number of arguments.
+# <HW> Task 2: Function that returns sum of infinite number of arguments.
 # First argument 'datatype' ("text" or "numbers") must be specified.
 # String or Numeric *args should be passed accordingly.
 def add_all_args(datatype="numbers", *args: int | str):
