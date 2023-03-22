@@ -6,7 +6,7 @@
 # HW Task 2: Function that returns sum of infinite number of arguments.
 # First argument 'datatype' ("text" or "numbers") must be specified.
 # String or Numeric *args should be passed accordingly.
-def add_all_args(datatype="numbers", *args):
+def add_all_args(datatype="numbers", *args: int | str):
     if not args:
         return None
 
@@ -64,7 +64,7 @@ def main():
 
     print(f"{selected_type.upper()} selected")
 
-    all_elements = list(enter_elements(selected_type))
+    all_elements = enter_elements(selected_type)
 
     print(f"RESULT : {add_all_args(selected_type, *all_elements)}")
 
