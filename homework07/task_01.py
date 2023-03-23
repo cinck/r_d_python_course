@@ -44,8 +44,10 @@ def add_contact(phonebook):
 
 # remove record by key "name"
 def delete_contact(name, phonebook):
+    phonebook.pop(name)
+    print(f"= Contact {name} deleted =")
     return phonebook
-    pass
+
 
 
 # display all names
@@ -60,10 +62,14 @@ def list_names(phonebook: dict):
 
 
 #  display all data
-# todo: write func
 def show_name(name: str, phonebook: dict):
+    if name not in phonebook.keys():
+        print(f"= There is no contact '{name}'. =")
+    else:
+        print(f"@ {name} @")
+        for info, data in phonebook[name].items():
+            print(f" - {info}: {data}")
     return phonebook
-    pass
 
 
 def extract_name(entry: str):
