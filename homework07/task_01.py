@@ -19,7 +19,7 @@ def check_available_name(name, names):
 
 
 # add record
-def add(phonebook):
+def add_contact(phonebook):
     contact_data = {"Phone number": "",
                     "E-mail": "",
                     "Address": ""
@@ -38,18 +38,20 @@ def add(phonebook):
     return phonebook
 
 
-
-    pass
-
-
 # remove record by key "name"
 def delete_record(name):
     pass
 
 
 # display all names
-def list_names():
-    pass
+def list_names(phonebook: dict):
+    if not phonebook.keys():
+        print("= There is no contacts yet. =")
+    else:
+        print("Recorded contacts:")
+        for contact in phonebook.keys():
+            print(f"@ {contact}")
+    return phonebook
 
 
 # display all data
@@ -68,11 +70,11 @@ def execute_command(command: str, phonebook: dict) -> dict:
         case "stats":
             pass
         case "add":
-            pass
+            return add_contact(phonebook)
         case "delete":
             pass
         case "list":
-            pass
+            return list_names(phonebook)
         case "show":
             pass
         case "help":
