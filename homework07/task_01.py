@@ -43,7 +43,8 @@ def add_contact(phonebook):
 
 
 # remove record by key "name"
-def delete_record(name):
+def delete_contact(name, phonebook):
+    return phonebook
     pass
 
 
@@ -58,9 +59,26 @@ def list_names(phonebook: dict):
     return phonebook
 
 
-# display all data
-def show_name(name):
+#  display all data
+# todo: write func
+def show_name(name: str, phonebook: dict):
+    return phonebook
     pass
+
+
+def extract_name(entry: str):
+    entry = entry.strip()
+    if len(entry) >= 3 and entry[0] == "<" and entry[-1] == ">":
+        name = entry[1:-1].strip()
+        return name
+    return ""
+
+
+def extract(executable: str):
+    first_space = executable.find(" ")
+    command = executable.strip()[:first_space]
+    name = extract_name(executable[first_space:])
+    return {"command": command, "name": name}
 
 
 def show_help():
@@ -69,24 +87,34 @@ def show_help():
 
 # take command
 def execute_command(command: str, phonebook: dict) -> dict:
-    executable = command.split()
-    match executable[0].lower():
+    executable = extract(command)
+    match executable["command"].lower():
         case "stats":
             return stats(phonebook)
+
         case "add":
             return add_contact(phonebook)
+
         case "delete":
-            pass
+            if executable["name"]:
+                return delete_contact(executable["name"], phonebook)
+            print("= Invalid name entry =")
+
         case "list":
             return list_names(phonebook)
+
         case "show":
-            pass
+            if executable["name"]:
+                return show_name(executable["name"], phonebook)
+            print("= Invalid name entry =")
+
         case "help":
-            pass
+            show_help()
+
         case _:
-            print("Invalid command. Try 'help' for info.")
-            return phonebook
-    return dict()
+            print(f"Invalid command \'{executable['command']}\'. Try 'help' for info.")
+
+    return phonebook
 
 
 def main(phonebook={}):
