@@ -54,8 +54,19 @@ def delete_contact(name, phonebook):
     return phonebook
 
 
+def search(match: str, phonebook: dict):
+    found = []
+    for name in phonebook.keys():
+        if match.lower() in name.lower():
+            found.append(name)
+    if not found:
+        print(f"<{match}> not found")
+    else:
+        print("Matches found in:")
+        for finding in found:
+            print(f"<{finding}>")
 
-# display all names
+
 def list_names(phonebook: dict):
     if not phonebook.keys():
         print("= There is no contacts yet. =")
@@ -101,6 +112,7 @@ def show_help():
                  "exit": "finish program operation",
                  "help": "show all commands description",
                  "list": "show all contacts names",
+                 "search <name>": "show contacts with matches in name",
                  "show <name>": "show selected contact data",
                  "stats": "show total records quantity"
                  }
@@ -134,6 +146,11 @@ def execute_command(command: str, phonebook: dict) -> dict:
         case "show":
             if executable["name"]:
                 return show_name(executable["name"], phonebook)
+            print("= Invalid or no name entry =")
+
+        case "search":
+            if executable["name"]:
+                search(executable["name"], phonebook)
             print("= Invalid or no name entry =")
 
         case "help":
