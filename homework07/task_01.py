@@ -3,17 +3,21 @@
 # record = {name: {} }
 
 # show qty of records
-def stats():
-    pass
+def stats(phonebook):
+    if not phonebook:
+        print("= PHONEBOOK IS EMPTY =")
+    else:
+        print(f"= You have {len(phonebook)} contacts recorded =")
+    return phonebook
 
 
 def check_available_name(name, names):
     if not name or name in names:
+        print("Record NOT crated. Reason :", end=" ")
         if not name:
             print("Entered nothing.")
         else:
             print("Contact already exists.")
-        print("Record NOT crated")
         return False
     return True
 
@@ -68,7 +72,7 @@ def execute_command(command: str, phonebook: dict) -> dict:
     executable = command.split()
     match executable[0].lower():
         case "stats":
-            pass
+            return stats(phonebook)
         case "add":
             return add_contact(phonebook)
         case "delete":
@@ -86,8 +90,8 @@ def execute_command(command: str, phonebook: dict) -> dict:
 
 
 def main(phonebook={}):
-    command = None
-    while command != "exit":
+    command = ""
+    while command.lower() != "exit":
         command = input("@-> ")
         if not command or command == "exit":
             continue
