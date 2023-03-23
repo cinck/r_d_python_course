@@ -15,11 +15,11 @@ def check_available_name(name, names):
     if not name or name.isspace() or name in names:
         print("= Record NOT crated. Reason :", end=" ")
         if not name:
-            print("Entered nothing. =")
+            print("Entered nothing =")
         elif name.isspace():
             print("Can't accept only spaces =")
         else:
-            print("Contact already exists. =")
+            print("Contact already exists =")
         return False
     return True
 
@@ -34,11 +34,11 @@ def add_contact(phonebook):
     name = input("Name: -> ")
 
     if check_available_name(name, phonebook.keys()):
-        print(f"Enter {name} contact data")
+        print(f"Enter < {name} > contact data")
         for data in contact_data.keys():
             contact_data[data] = input(f"{data}: > ")
         phonebook[name] = contact_data
-        print(f"Contact '{name}' created.")
+        print(f"Contact < {name} > created.")
         return phonebook
 
     return phonebook
@@ -47,10 +47,11 @@ def add_contact(phonebook):
 # remove record by key "name"
 def delete_contact(name, phonebook):
     if name in phonebook.keys():
-        phonebook.pop(name)
-        print(f"= Contact '{name}' deleted =")
+        if input(f"Type 'yes' if you agree to delete < {name} >: ->").lower() == "yes":
+            phonebook.pop(name)
+            print(f"= Contact < {name} > deleted =")
     else:
-        print(f"= Contact '{name}' doesn't exist =")
+        print(f"= Contact < {name} > doesn't exist =")
     return phonebook
 
 
@@ -60,29 +61,30 @@ def search(match: str, phonebook: dict):
         if match.lower() in name.lower():
             found.append(name)
     if not found:
-        print(f"<{match}> not found")
+        print(f"< {match} > not found")
     else:
         print("Matches found in:")
         for finding in found:
-            print(f"<{finding}>")
+            print(f"< {finding} >")
+    return phonebook
 
 
 def list_names(phonebook: dict):
     if not phonebook.keys():
-        print("= There is no contacts yet. =")
+        print("= There is no contacts yet =")
     else:
         print("Recorded contacts:")
         for contact in phonebook.keys():
-            print(f" <{contact}>")
+            print(f" < {contact} >")
     return phonebook
 
 
 #  display all data
 def show_name(name: str, phonebook: dict):
     if name not in phonebook.keys():
-        print(f"= There is no contact '{name}'. =")
+        print(f"= There is no contact < {name} > =")
     else:
-        print(f"@ {name} @")
+        print(f"< {name} >")
         for info, data in phonebook[name].items():
             print(f" - {info}: {data}")
     return phonebook
@@ -106,7 +108,7 @@ def extract(executable: str):
 
 
 def show_help():
-    help_info = {"COMMAND": "DESCRIPTION",
+    help_info = {"=COMMAND=": "=DESCRIPTION=",
                  "add": "create new contact",
                  "delete <name>": "delete selected contact",
                  "exit": "finish program operation",
@@ -120,7 +122,7 @@ def show_help():
     for item, description in help_info.items():
         spaces = " " * (15 - len(item))
         separator = "  -  "
-        if item == "COMMAND":
+        if item == "=COMMAND=":
             separator = "     "
         print(f"{item+spaces}{separator}{description}")
 
@@ -150,7 +152,7 @@ def execute_command(command: str, phonebook: dict) -> dict:
 
         case "search":
             if executable["name"]:
-                search(executable["name"], phonebook)
+                return search(executable["name"], phonebook)
             print("= Invalid or no name entry =")
 
         case "help":
@@ -175,8 +177,6 @@ def main(phonebook={}):
         else:
             print("-----------------------------------------------------")
             phonebook = execute_command(command, phonebook)
-
-    pass
 
 
 if __name__ == "__main__":
