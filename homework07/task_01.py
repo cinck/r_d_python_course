@@ -14,8 +14,8 @@ def show_stats(phonebook: dict):
 
 
 # Confirms if name is valid to be recorded or rejects it
-def check_available(name: str, names):
-    if not name or name.isspace() or name in names:
+def check_available(name: str, contacts):
+    if not name or name.isspace() or name in contacts:
         print("= Record NOT created. Reason :", end=" ")
         if not name:
             print("Entered nothing =")
