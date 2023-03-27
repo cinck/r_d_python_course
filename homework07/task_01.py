@@ -4,8 +4,15 @@
 # Once created record can't be edited, only removed.
 # Contact names can't duplicate.
 
-# Displays quantity of existing records in phonebook
+
 def show_stats(phonebook: dict):
+    """
+    Displays quantity of existing records in phonebook.
+    Takes dict() as an argument, counts number of items in it,
+    displays result and returns dict() back
+    :param phonebook: dict()
+    :return: dict()
+    """
     if not phonebook:
         print("= PHONEBOOK IS EMPTY =")
     else:
@@ -13,8 +20,12 @@ def show_stats(phonebook: dict):
     return phonebook
 
 
-# Confirms if name is valid to be recorded or rejects it
 def check_available(name: str, contacts):
+    """
+     Confirms if name is valid to be recorded or rejects it.
+     Returns False if str() argument is empty, spaces only or is in second argument.
+     True if none of above.
+     """
     if not name or name.isspace() or name in contacts:
         print("= Record NOT created. Reason :", end=" ")
         if not name:
@@ -27,8 +38,15 @@ def check_available(name: str, contacts):
     return True
 
 
-# Adds new contact record to phonebook
 def add_contact(phonebook: dict):
+    """
+    Creates new record in 'phonebook'
+
+    Takes dict() as an argument and adds new item to it from input if dict key is valid to use.
+    Returns updated dict() or dict() without changes if key not valid.
+    :param phonebook: dict()
+    :return: dict()
+    """
     contact_data = {"Phone number": "",
                     "E-mail": "",
                     "Address": ""
@@ -48,8 +66,17 @@ def add_contact(phonebook: dict):
     return phonebook
 
 
-# Removes contact record from phonebook
 def delete_contact(name: str, phonebook: dict):
+    """
+    Removes item 'name' from 'phonebook'
+
+    Takes str() and dict() as an arguments.
+    Removes item from dict() if key == str() and input confirmation.
+    Returns updated or not updated dict().
+    :param name: str() - key value to remove from dict()
+    :param phonebook: dict()
+    :return: dict() with or without changes
+    """
     if name in phonebook.keys():
         if input(f"Type 'yes' if you agree to delete < {name} >: -> ").lower() == "yes":
             phonebook.pop(name)
@@ -59,8 +86,15 @@ def delete_contact(name: str, phonebook: dict):
     return phonebook
 
 
-# Displays all contacts which have any matches with searched name
 def search(match: str, phonebook: dict):
+    """
+    Displays all contacts which have any matches with searched name
+
+    Takes str() and dict() as arguments. Compares dict().keys() values withAdds dict().keys() to
+    :param match:
+    :param phonebook:
+    :return:
+    """
     found = []
     for name in phonebook.keys():
         if match.lower() in name.lower():
@@ -74,8 +108,14 @@ def search(match: str, phonebook: dict):
     return phonebook
 
 
-# Displays all recorded names in phonebook
 def list_names(phonebook: dict):
+    """
+    Displays all recorded names in phonebook
+
+    Prints keys of dict() argument if it's not empty.
+    :param phonebook: dict()
+    :return: dict()
+    """
     if not phonebook.keys():
         print("= There is no contacts yet =")
     else:
@@ -85,8 +125,15 @@ def list_names(phonebook: dict):
     return phonebook
 
 
-# Displays selected contact info
 def show_name(name: str, phonebook: dict):
+    """
+    Displays selected contact full info
+
+    Displays value of key name if it key is in phonebook
+    :param name: str() - searched key
+    :param phonebook: dict() - phonebook storage
+    :return: dict()
+    """
     if name not in phonebook.keys():
         print(f"= There is no contact < {name} > =")
     else:
@@ -96,8 +143,16 @@ def show_name(name: str, phonebook: dict):
     return phonebook
 
 
-# Extracts name parameter from user's query
 def extract_name(entry: str):
+    """
+    Extracts name parameter from user's query
+
+    Takes str() as an argument.
+    Returns empty string or the argument's string without first and last characters
+    if first and last characters of the argument's string are '<' and '>'
+    :param entry: str()
+    :return: str()
+    """
     entry = entry.strip()
     if len(entry) >= 3 and entry[0] == "<" and entry[-1] == ">":
         name = entry[1:-1].strip()
@@ -105,8 +160,15 @@ def extract_name(entry: str):
     return ""
 
 
-# Extracts command from user's query
 def extract(executable: str):
+    """
+    Extracts command from user's query
+
+    Takes str() as an arguments, divides it into two strings by the first found space character.
+    Returns dict() with two items.
+    :param executable: str()
+    :return: dict() = {"command": str(), "name": str()}
+    """
     first_space = executable.find(" ")
     command = executable.strip()[:first_space]
     if first_space == -1:
@@ -115,8 +177,11 @@ def extract(executable: str):
     return {"command": command, "name": name}
 
 
-# Displays list of commands with descriptions
 def show_help():
+    """
+    Displays list of commands with descriptions
+    :return: None
+    """
     help_info = {"=COMMAND=": "=DESCRIPTION=",
                  "add": "create new contact",
                  "delete <name>": "delete selected contact",
@@ -136,8 +201,16 @@ def show_help():
         print(f"{item+spaces}{separator}{description}")
 
 
-# Executes user's command
 def execute_command(command: str, phonebook: dict) -> dict:
+    """
+    Executes user's command
+
+    Takes str() and dict() as arguments.
+    Passes dict() and str() to other functions after str() verification by extract()
+    :param command: str() - expected string with keywords
+    :param phonebook: dict() - dict()
+    :return: dict() - modified or unmodified 'phonebook'
+    """
     executable = extract(command)
 
     match executable["command"].lower():
@@ -174,8 +247,15 @@ def execute_command(command: str, phonebook: dict) -> dict:
     return phonebook
 
 
-# Starts program and receives user's commands
 def main(phonebook={}):
+    """
+    Starts program and receives user's commands
+
+    Cycles through the input to receive and pass commands for execution.
+    Dict() is used for phonebook data storage.
+    :param phonebook: dict() - main storage
+    :return: None
+    """
     print("       ========= PHONEBOOK  V.0.1.1 =========")
     print("              = Welcome to PHONEBOOK =")
     print("       You can always execute 'help' for info")
@@ -183,7 +263,7 @@ def main(phonebook={}):
     while command.lower() != "exit":
         print("--------------------------------------------------------")
         command = input("@-> ")
-        if not command or command == "exit":
+        if not command or command.lower() == "exit":
             continue
         else:
             print("--------------------------------------------------------")
