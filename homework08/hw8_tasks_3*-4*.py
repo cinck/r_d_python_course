@@ -29,10 +29,10 @@ if __name__ == "__main__":
     some_list = [1, 3.5, True, "oxygen", (1, "great 18"), 0, False, "9 rings of hell", -0.24]
     print(f"Some list:\n{some_list}")
     print()
-
+    # <HW Task 3>
     mapped_list = tuple(map(strings_to_upper, some_list))
     print(f"Modified list:\n{mapped_list}")
     print()
-
+    # <HW Task 4>
     filtered_list = tuple(filter(only_numeric, some_list))  # 0 (zero) is always filtered away
     print(f"Numbers found in all items of the list:\n{filtered_list}")
