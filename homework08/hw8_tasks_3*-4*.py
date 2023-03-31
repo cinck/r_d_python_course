@@ -21,8 +21,7 @@ def only_numeric(item):
     :param item:
     :return:
     """
-    if isinstance(item, (int, float)) and not isinstance(item, (bool,)):
-        return item
+    return isinstance(item, (int, float))
 
 
 if __name__ == "__main__":
@@ -35,5 +34,5 @@ if __name__ == "__main__":
     print(f"Modified list:\n{mapped_list}")
     print()
     # <HW Task 4> Filtering numeric items
-    filtered_list = tuple(filter(only_numeric, some_list))  # 0 (zero) is always filtered away
+    filtered_list = tuple(filter(only_numeric, some_list))
     print(f"Numbers found in all items of the list:\n{filtered_list}")
