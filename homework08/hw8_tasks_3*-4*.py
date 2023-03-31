@@ -10,7 +10,7 @@ def strings_to_upper(item):
     :param item:
     :return:
     """
-    if isinstance(item, (str,)):
+    if isinstance(item, str):
         return item.upper()
     return item
 
