@@ -2,7 +2,7 @@
 
 def intentry(rangemax=0) -> int:
     """
-    Returns integer from users entry
+    Returns integer from user's input. Maximum value may be limited by argument.
     :param rangemax: maximal range number, 0 if unlimited
     :return: int
     """
