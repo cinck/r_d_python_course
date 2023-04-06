@@ -77,13 +77,27 @@ def delete_contact(name: str, phonebook: dict):
     :param phonebook: dict()
     :return: dict() with or without changes
     """
-    if name in phonebook.keys():
-        if input(f"Type 'yes' if you agree to delete < {name} >: -> ").lower() == "yes":
-            phonebook.pop(name)
-            print(f"= Contact < {name} > deleted =")
-    else:
+# <HW11> Task: Implement 'try ... except '. Block 1
+    try:
+        record = phonebook.pop(name)
+    except KeyError:
         print(f"= Contact < {name} > doesn't exist =")
-    return phonebook
+    else:
+        if input(f"Type 'yes' if you agree to delete < {name} >: -> ").lower() == "yes":
+            print(f"= Contact < {name} > deleted =")
+        else:
+            phonebook[name] = record
+            print(f"= Contact < {name} > NOT deleted =")
+    finally:
+        return phonebook
+
+    # if name in phonebook.keys():
+    #     if input(f"Type 'yes' if you agree to delete < {name} >: -> ").lower() == "yes":
+    #         phonebook.pop(name)
+    #         print(f"= Contact < {name} > deleted =")
+    # else:
+    #     print(f"= Contact < {name} > doesn't exist =")
+    # return phonebook
 
 
 def search(match: str, phonebook: dict):
@@ -134,13 +148,26 @@ def show_name(name: str, phonebook: dict):
     :param phonebook: dict() - phonebook storage
     :return: dict()
     """
-    if name not in phonebook.keys():
+# <HW11> Task: Implement 'try ... except '. Block 2
+    try:
+        record = phonebook[name]
+
+    except KeyError:
         print(f"= There is no contact < {name} > =")
     else:
         print(f"< {name} >")
-        for info, data in phonebook[name].items():
+        for info, data in record.items():
             print(f" - {info}: {data}")
-    return phonebook
+    finally:
+        return phonebook
+
+    # if name not in phonebook.keys():
+    #     print(f"= There is no contact < {name} > =")
+    # else:
+    #     print(f"< {name} >")
+    #     for info, data in phonebook[name].items():
+    #         print(f" - {info}: {data}")
+    # return phonebook
 
 
 def extract_name(entry: str):
