@@ -13,7 +13,7 @@ class MyCustomException(Exception):
 
     def get_error_descr(self):
         return self.error_descr
-    pass
+
 
 def show_stats(phonebook: dict):
     """
@@ -101,14 +101,6 @@ def delete_contact(name: str, phonebook: dict):
     finally:
         return phonebook
 
-    # if name in phonebook.keys():
-    #     if input(f"Type 'yes' if you agree to delete < {name} >: -> ").lower() == "yes":
-    #         phonebook.pop(name)
-    #         print(f"= Contact < {name} > deleted =")
-    # else:
-    #     print(f"= Contact < {name} > doesn't exist =")
-    # return phonebook
-
 
 def search(match: str, phonebook: dict):
     """
@@ -192,14 +184,6 @@ def show_name(name: str, phonebook: dict):
             print(f" - {info}: {data}")
     finally:
         return phonebook
-
-    # if name not in phonebook.keys():
-    #     print(f"= There is no contact < {name} > =")
-    # else:
-    #     print(f"< {name} >")
-    #     for info, data in phonebook[name].items():
-    #         print(f" - {info}: {data}")
-    # return phonebook
 
 
 def extract_name(entry: str):
@@ -327,7 +311,7 @@ def main(phonebook={}):
     :param phonebook: dict() - main storage
     :return: None
     """
-    print("       ========= PHONEBOOK  V.0.1.1 =========")
+    print("       ========= PHONEBOOK  V.0.1.HW-11 =========")
     print("              = Welcome to PHONEBOOK =")
     print("       You can always execute 'help' for info")
     command = ""
