@@ -4,6 +4,16 @@
 # Once created record can't be edited, only removed.
 # Contact names can't duplicate.
 
+# <HW11> Task 2*. Custom exception class
+class MyCustomException(Exception):
+    def __init__(self, message, error_descr):
+
+        super().__init__(message)
+        self.error_descr = error_descr
+
+    def get_error_descr(self):
+        return self.error_descr
+    pass
 
 def show_stats(phonebook: dict):
     """
@@ -122,6 +132,28 @@ def search(match: str, phonebook: dict):
     return phonebook
 
 
+def rename(name: str, phonebook: dict):
+    """
+    Deletes passed by argument key from phonebook dicts and sets its value to key
+    :param name: key to be replaced
+    :param phonebook: main storage
+    :return: phonebook dict()
+    """
+    try:
+        record = phonebook.pop(name)
+    except KeyError:
+        print(f"There is no <{name}> in contacts")
+    else:
+        new_name = input(f"Enter new name for <{name}>: -> ")
+        if not new_name:
+            phonebook[name] = record
+            # <HW11> Task 2. Raise custom exception
+            raise MyCustomException("Naming error", "Name can't be empty")
+        else:
+            phonebook[new_name] = record
+    return phonebook
+
+
 def list_names(phonebook: dict):
     """
     Displays all recorded names in phonebook
@@ -215,6 +247,7 @@ def show_help():
                  "exit": "finish program operation",
                  "help": "show description of all commands",
                  "list": "show all contacts names",
+                 "rename <name>": "change name of existing contact",
                  "search <name>": "show contacts with matches in name",
                  "show <name>": "show selected contact data",
                  "stats": "show total records quantity"
@@ -255,6 +288,13 @@ def execute_command(command: str, phonebook: dict) -> dict:
         case "list":
             return list_names(phonebook)
 
+        case "rename":
+            # <HW11> Task 1+2. 'Try Except' block + custom exception
+            try:
+                phonebook = rename(executable["name"], phonebook)
+            except MyCustomException as exc:
+                print(f"Failed to rename. Reason: {exc}: {exc.error_descr}")
+
         case "show":
             if executable["name"]:
                 return show_name(executable["name"], phonebook)
@@ -267,6 +307,10 @@ def execute_command(command: str, phonebook: dict) -> dict:
 
         case "help":
             show_help()
+
+        case "fail":
+            # <HW11> Task 2. Raise custom exception
+            raise MyCustomException("Custom exception is occurred", "Waisted!")
 
         case _:
             print(f"= Invalid command \'{executable['command']}\'. Try 'help' for info =")
