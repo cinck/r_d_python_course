@@ -29,7 +29,6 @@ class MyCustomException(Exception):
             )
 
     def get_error_descr(self):
-        self.save_to_log()
         return self.error_descr
 
 
