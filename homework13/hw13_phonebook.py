@@ -6,6 +6,7 @@ import json
 # Once created record can't be edited, only removed.
 # Contact names can't duplicate.
 
+
 # <HW11> Task 2*. Custom exception class
 class MyCustomException(Exception):
     def __init__(self, message, error_descr):
@@ -142,7 +143,7 @@ def search(match: str, phonebook: dict):
 def rename(name: str, phonebook: dict):
     """
     Deletes passed by argument key from phonebook dicts and sets its value to key
-    :param name: key to be replaced
+    :param name: dict key to be replaced
     :param phonebook: main storage
     :return: phonebook dict()
     """
@@ -183,7 +184,7 @@ def show_name(name: str, phonebook: dict):
     """
     Displays selected contact full info
 
-    Displays value of key name if it key is in phonebook
+    Displays value of key name if key is in phonebook
     :param name: str() - searched key
     :param phonebook: dict() - phonebook storage
     :return: dict()
@@ -318,7 +319,7 @@ def execute_command(command: str, phonebook: dict) -> dict:
     return phonebook
 
 
-def main(phonebook={}):
+def main(phonebook: dict):
     """
     Starts program and receives user's commands
 
@@ -343,7 +344,11 @@ def main(phonebook={}):
 
 if __name__ == "__main__":
     # <HW13> Task 1. Load data stored records from file.
-    with open("records.json", "r") as phonebook_f:
-        records = phonebook_f.read()
-        phonebook = json.loads(records)
+    try:
+        with open("records.json", "r") as phonebook_f:
+            records = phonebook_f.read()
+            phonebook = json.loads(records)
+    except FileNotFoundError:
+        phonebook = {}
+
     main(phonebook)
