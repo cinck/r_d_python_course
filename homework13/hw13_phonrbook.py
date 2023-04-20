@@ -1,3 +1,5 @@
+import json
+
 # ======== PHONEBOOK <HW11> =========
 # Stores and displays contact's information.
 # Creates records of contacts by their names with phone number, e-mail and address info.
@@ -13,6 +15,17 @@ class MyCustomException(Exception):
 
     def get_error_descr(self):
         return self.error_descr
+
+
+# <HW13> Task 1. Saving phonebook to a file.
+def save_phonebook(phonebook: dict):
+    """
+    Saves dict to json file
+    :param phonebook: dict
+    :return:
+    """
+    with open("records.json", "w") as phonebook_f:
+        phonebook_f.write(json.dumps(phonebook))
 
 
 def show_stats(phonebook: dict):
@@ -72,6 +85,7 @@ def add_contact(phonebook: dict):
 
         phonebook[name] = contact_data
         print(f"Contact < {name} > created.")
+        save_phonebook(phonebook)               # <HW13> Task 1
 
     return phonebook
 
@@ -95,6 +109,7 @@ def delete_contact(name: str, phonebook: dict):
     else:
         if input(f"Type 'yes' if you agree to delete < {name} >: -> ").lower() == "yes":
             print(f"= Contact < {name} > deleted =")
+            save_phonebook(phonebook)                   # <HW13> Task 1
         else:
             phonebook[name] = record
             print(f"= Contact < {name} > NOT deleted =")
@@ -143,6 +158,7 @@ def rename(name: str, phonebook: dict):
             raise MyCustomException("Naming error", "Name can't be empty")
         else:
             phonebook[new_name] = record
+            save_phonebook(phonebook)           # <HW13> Task 1
     return phonebook
 
 
@@ -311,7 +327,7 @@ def main(phonebook={}):
     :param phonebook: dict() - main storage
     :return: None
     """
-    print("       ========= PHONEBOOK  V.0.1.HW-11 =========")
+    print("       ========= PHONEBOOK  V.0.1.HW-13 =========")
     print("              = Welcome to PHONEBOOK =")
     print("       You can always execute 'help' for info")
     command = ""
@@ -326,4 +342,8 @@ def main(phonebook={}):
 
 
 if __name__ == "__main__":
-    main()
+    # <HW13> Task 1. Load data stored records from file.
+    with open("records.json", "r") as phonebook_f:
+        records = phonebook_f.read()
+        phonebook = json.loads(records)
+    main(phonebook)
