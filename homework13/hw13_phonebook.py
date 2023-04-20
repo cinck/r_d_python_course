@@ -1,5 +1,5 @@
 import json
-from hw13_task2 import func_name_time
+from hw13_task2 import log_name_time
 
 # ======== PHONEBOOK <HW11> =========
 # Stores and displays contact's information.
@@ -20,7 +20,7 @@ class MyCustomException(Exception):
 
 
 # <HW13> Task 1. Saving phonebook to a file.
-@func_name_time
+@log_name_time
 def save_phonebook(phonebook: dict):
     """
     Saves dict to json file
@@ -31,7 +31,7 @@ def save_phonebook(phonebook: dict):
         phonebook_f.write(json.dumps(phonebook))
 
 
-@func_name_time
+@log_name_time
 def show_stats(phonebook: dict):
     """
     Displays quantity of existing records in phonebook.
@@ -47,7 +47,7 @@ def show_stats(phonebook: dict):
     return phonebook
 
 
-@func_name_time
+@log_name_time
 def check_available(name: str, contacts):
     """
      Confirms if name is valid to be recorded or rejects it.
@@ -66,7 +66,7 @@ def check_available(name: str, contacts):
     return True
 
 
-@func_name_time
+@log_name_time
 def add_contact(phonebook: dict):
     """
     Creates new record in 'phonebook'
@@ -96,7 +96,7 @@ def add_contact(phonebook: dict):
     return phonebook
 
 
-@func_name_time
+@log_name_time
 def delete_contact(name: str, phonebook: dict):
     """
     Removes item 'name' from 'phonebook'
@@ -124,7 +124,7 @@ def delete_contact(name: str, phonebook: dict):
         return phonebook
 
 
-@func_name_time
+@log_name_time
 def search(match: str, phonebook: dict):
     """
     Displays all contacts which have any matches with searched name
@@ -147,7 +147,7 @@ def search(match: str, phonebook: dict):
     return phonebook
 
 
-@func_name_time
+@log_name_time
 def rename(name: str, phonebook: dict):
     """
     Deletes passed by argument key from phonebook dicts and sets its value to key
@@ -171,7 +171,7 @@ def rename(name: str, phonebook: dict):
     return phonebook
 
 
-@func_name_time
+@log_name_time
 def list_names(phonebook: dict):
     """
     Displays all recorded names in phonebook
@@ -189,7 +189,7 @@ def list_names(phonebook: dict):
     return phonebook
 
 
-@func_name_time
+@log_name_time
 def show_name(name: str, phonebook: dict):
     """
     Displays selected contact full info
@@ -213,7 +213,7 @@ def show_name(name: str, phonebook: dict):
         return phonebook
 
 
-@func_name_time
+@log_name_time
 def extract_name(entry: str):
     """
     Extracts name parameter from user's query
@@ -231,7 +231,7 @@ def extract_name(entry: str):
     return ""
 
 
-@func_name_time
+@log_name_time
 def extract(executable: str):
     """
     Extracts command from user's query
@@ -249,7 +249,7 @@ def extract(executable: str):
     return {"command": command, "name": name}
 
 
-@func_name_time
+@log_name_time
 def show_help():
     """
     Displays list of commands with descriptions
@@ -275,7 +275,7 @@ def show_help():
         print(f"{item+spaces}{separator}{description}")
 
 
-@func_name_time
+@log_name_time
 def execute_command(command: str, phonebook: dict) -> dict:
     """
     Executes user's command
@@ -333,7 +333,7 @@ def execute_command(command: str, phonebook: dict) -> dict:
     return phonebook
 
 
-@func_name_time
+@log_name_time
 def main(phonebook: dict):
     """
     Starts program and receives user's commands

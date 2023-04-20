@@ -2,7 +2,7 @@ import os
 from time import strftime
 
 
-def func_name_time(some_func):
+def log_name_time(some_func):
     """Decorator function saves name of function and time when it's called into log file"""
 
     def inner_func(*args, **kwargs):
