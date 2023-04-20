@@ -1,4 +1,6 @@
 import json
+import os
+from time import strftime
 from hw13_task2 import log_name_time
 
 # ======== PHONEBOOK <HW11> =========
@@ -14,8 +16,20 @@ class MyCustomException(Exception):
 
         super().__init__(message)
         self.error_descr = error_descr
+        self.error_message = message
+        self.save_to_log()              # <HW13> Task 3.
+
+# <HW13> Task 3. Save custom exception info to a file
+    def save_to_log(self):
+        if not os.path.exists("logs"):
+            os.mkdir("logs")
+        with open(f"logs/error_log.txt", "a") as log_file:
+            log_file.write(
+                f"Error '{self.error_message} : {self.error_descr}' occurred at {strftime('%d.%m.%Y %H:%M:%S')}\n"
+            )
 
     def get_error_descr(self):
+        self.save_to_log()
         return self.error_descr
 
 
