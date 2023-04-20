@@ -10,7 +10,7 @@ def log_name_time(some_func):
             os.mkdir("logs")
         with open(f"logs/{__name__}_log.txt", "a") as log_file:
             log_file.write(
-                f"Function '{some_func.__name__}'\n     started at {strftime('%d.%m.%Y %H:%M:%S')}\n\n")
+                f"{strftime('%Y-%m-%d %H:%M:%S')} started function '{some_func.__name__}'\n")
 
         return some_func(*args, **kwargs)
 
