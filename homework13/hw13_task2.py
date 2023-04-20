@@ -9,7 +9,8 @@ def log_name_time(some_func):
         if not os.path.exists("logs"):
             os.mkdir("logs")
         with open(f"logs/{__name__}_log.txt", "a") as log_file:
-            log_file.write(f"Function '{some_func.__name__}' started at {strftime('%d.%m.%Y %H:%M:%S')}\n")
+            log_file.write(
+                f"Function '{some_func.__name__}'\n     started at {strftime('%d.%m.%Y %H:%M:%S')}\n\n")
 
         return some_func(*args, **kwargs)
 
