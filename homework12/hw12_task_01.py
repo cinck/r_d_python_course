@@ -1,4 +1,4 @@
-from time import strftime as s_time, localtime, sleep
+from time import strftime as s_time, sleep
 
 
 # <HW12> Task1
@@ -6,7 +6,7 @@ def func_name_time(some_func):
     """Decorator function displays name of function which is decorated and start time of function operation"""
 
     def inner_func():
-        print(f"Function '{some_func.__name__}' started at {s_time('%H:%M:%S', localtime())}")
+        print(f"Function '{some_func.__name__}' started at {s_time('%H:%M:%S')}")
         some_func()
 
     return inner_func

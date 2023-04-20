@@ -1,5 +1,5 @@
+from time import strftime as s_time
 from myfrequentfuncs.myfuncs import intentry  # function to obtain integers from input
-from time import strftime as s_time, localtime
 
 
 # <HW12> Task 3
@@ -14,7 +14,7 @@ def name_time_deco(times=0):
 
         def inner_func():
             for i in range(times):
-                print(f"{i+1}) Function '{some_func.__name__}' started at {s_time('%H:%M:%S', localtime())}")
+                print(f"{i+1}) Function '{some_func.__name__}' started at {s_time('%H:%M:%S')}")
             some_func()
 
         return inner_func
