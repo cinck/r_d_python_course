@@ -12,10 +12,10 @@ def name_time_deco(times=0):
 
     def wrap(some_func):
 
-        def inner_func():
+        def inner_func(*args, **kwargs):
             for i in range(times):
                 print(f"{i+1}) Function '{some_func.__name__}' started at {s_time('%H:%M:%S')}")
-            some_func()
+            return some_func(*args, **kwargs)
 
         return inner_func
 

@@ -5,9 +5,9 @@ from time import strftime as s_time, sleep
 def func_name_time(some_func):
     """Decorator function displays name of function which is decorated and start time of function operation"""
 
-    def inner_func():
+    def inner_func(*args, **kwargs):
         print(f"Function '{some_func.__name__}' started at {s_time('%H:%M:%S')}")
-        some_func()
+        return some_func(*args, **kwargs)
 
     return inner_func
 
@@ -15,6 +15,7 @@ def func_name_time(some_func):
 @func_name_time
 def my_function():
     print("This is my function")
+    return 10
 
 
 @func_name_time
@@ -23,6 +24,6 @@ def my_function2():
 
 
 if __name__ == "__main__":
-    my_function()
+    print(my_function())
     sleep(3)
     my_function2()
