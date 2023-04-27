@@ -93,12 +93,12 @@ def add_contact(phonebook: dict):
 
     print("Enter contact name")
     name = input("Name: -> ")
-    phonebook = create_contact(name, phonebook)
+    phonebook = update_contact_data(name, phonebook)
 
     return phonebook
 
 
-def create_contact(name: str, phonebook: dict):
+def update_contact_data(name: str, phonebook: dict):
 
     contact_data = {"Phone number": "",
                     "E-mail": "",
@@ -109,9 +109,11 @@ def create_contact(name: str, phonebook: dict):
         print(f"Enter < {name} > contact data")
 
         for info in contact_data.keys():
-            contact_data[info] = input(f"{info}: > ")
-            if info == "Phone number":
-                contact_data[info] = validate_no(contact_data[info])
+            data = input(f"{info}: > ")
+            if data:
+                contact_data[info] = data
+                if info == "Phone number":
+                    check_ua_valid(contact_data[info])
 
         phonebook[name] = contact_data
         print(f"Contact < {name} > created.")
@@ -120,7 +122,8 @@ def create_contact(name: str, phonebook: dict):
     return phonebook
 
 
-def validate_no(phone_no: str):
+def check_ua_valid(phone_no: str):
+
 
     return phone_no
 
