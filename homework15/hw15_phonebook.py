@@ -112,8 +112,6 @@ def update_contact_data(name: str, phonebook: dict):
             data = input(f"{info}: > ")
             if data:
                 contact_data[info] = data
-                if info == "Phone number":
-                    check_ua_valid(contact_data[info])
 
         phonebook[name] = contact_data
         print(f"Contact < {name} > data updated.")
@@ -128,7 +126,6 @@ def check_ua_valid(phone_no: str):
         return "Number is UA valid"
     else:
         return "Number is not UA valid"
-
 
 
 @log_name_time
@@ -243,6 +240,8 @@ def show_name(name: str, phonebook: dict):
     else:
         print(f"< {name} >")
         for info, data in record.items():
+            if info == "Phone number":
+                data = f"{data} - {check_ua_valid(data)}"   # <HW15> Task1. UA phone numbers validation
             print(f" - {info}: {data}")
     finally:
         return phonebook
