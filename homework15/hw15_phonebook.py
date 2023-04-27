@@ -1,7 +1,8 @@
 import json
 import os
+import re
 from time import strftime
-from hw13_task2 import log_name_time
+from homework13.hw13_task2 import log_name_time
 
 # ======== PHONEBOOK <HW11> =========
 # Stores and displays contact's information.
@@ -89,24 +90,39 @@ def add_contact(phonebook: dict):
     :param phonebook: dict()
     :return: dict()
     """
+
+    print("Enter contact name")
+    name = input("Name: -> ")
+    phonebook = create_contact(name, phonebook)
+
+    return phonebook
+
+
+def create_contact(name: str, phonebook: dict):
+
     contact_data = {"Phone number": "",
                     "E-mail": "",
                     "Address": ""
                     }
-    print("Enter contact name")
-    name = input("Name: -> ")
 
     if check_available(name, phonebook.keys()):
         print(f"Enter < {name} > contact data")
 
         for info in contact_data.keys():
             contact_data[info] = input(f"{info}: > ")
+            if info == "Phone number":
+                contact_data[info] = validate_no(contact_data[info])
 
         phonebook[name] = contact_data
         print(f"Contact < {name} > created.")
-        save_phonebook(phonebook)               # <HW13> Task 1
+        save_phonebook(phonebook)  # <HW13> Task 1
 
     return phonebook
+
+
+def validate_no(phone_no: str):
+
+    return phone_no
 
 
 @log_name_time
@@ -368,7 +384,6 @@ def main(phonebook: dict):
         else:
             print("--------------------------------------------------------")
             phonebook = execute_command(command, phonebook)
-
 
 
 if __name__ == "__main__":
