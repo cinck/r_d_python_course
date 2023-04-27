@@ -116,16 +116,19 @@ def update_contact_data(name: str, phonebook: dict):
                     check_ua_valid(contact_data[info])
 
         phonebook[name] = contact_data
-        print(f"Contact < {name} > created.")
+        print(f"Contact < {name} > data updated.")
         save_phonebook(phonebook)  # <HW13> Task 1
 
     return phonebook
 
 
 def check_ua_valid(phone_no: str):
+    match = re.fullmatch(r"\+380\d{9}|380\d{9}|0\d{9}", phone_no)
+    if match:
+        return "Number is UA valid"
+    else:
+        return "Number is not UA valid"
 
-
-    return phone_no
 
 
 @log_name_time
