@@ -61,6 +61,7 @@ def show_stats(phonebook: dict):
     return phonebook
 
 
+@log_name_time
 def exists(name: str, phonebook: dict):
     if name in phonebook.keys():
         return True
@@ -104,6 +105,7 @@ def add_contact(phonebook: dict):
     return phonebook
 
 
+@log_name_time
 def update_contact_data(name: str, phonebook: dict, new_contact=False):
     """
     Updates or adds 'phonebook[name]' values if 'name' in 'phonebook' or 'new_contact=True'
@@ -140,7 +142,14 @@ def update_contact_data(name: str, phonebook: dict, new_contact=False):
     return phonebook
 
 
+# <HW15> Task1. Check phone number is valid for UA
+@log_name_time
 def check_ua_valid(phone_no: str):
+    """
+    Checks if phone number is valid for UA
+    :param phone_no:
+    :return:
+    """
     match = re.fullmatch(r"\+380\d{9}|380\d{9}|0\d{9}", phone_no)
     if match:
         return "UA valid"
@@ -402,7 +411,7 @@ def main(phonebook: dict):
     :param phonebook: dict() - main storage
     :return: None
     """
-    print("       ========= PHONEBOOK  V.0.1.HW-13 =========")
+    print("       ========= PHONEBOOK  V.0.1.HW-15 =========")
     print("              = Welcome to PHONEBOOK =")
     print("       You can always execute 'help' for info")
     command = ""
