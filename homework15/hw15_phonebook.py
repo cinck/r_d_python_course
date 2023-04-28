@@ -61,14 +61,20 @@ def show_stats(phonebook: dict):
     return phonebook
 
 
+def exists(name: str, phonebook: dict):
+    if name in phonebook.keys():
+        return True
+    return False
+
+
 @log_name_time
-def check_available(name: str, contacts):
+def check_available(name: str, phonebook: dict):
     """
      Confirms if name is valid to be recorded or rejects it.
      Returns False if str() argument is empty, spaces only or is in second argument.
      True if none of above.
      """
-    if not name or name.isspace() or name in contacts:
+    if not name or name.isspace() or exists(name, phonebook):
         print("= Record NOT created. Reason :", end=" ")
         if not name:
             print("Entered nothing =")
@@ -93,29 +99,43 @@ def add_contact(phonebook: dict):
 
     print("Enter contact name")
     name = input("Name: -> ")
-    phonebook = update_contact_data(name, phonebook)
-
+    if check_available(name, phonebook):
+        return update_contact_data(name, phonebook, new_contact=True)
     return phonebook
 
 
-def update_contact_data(name: str, phonebook: dict):
+def update_contact_data(name: str, phonebook: dict, new_contact=False):
+    """
+    Updates or adds 'phonebook[name]' values if 'name' in 'phonebook' or 'new_contact=True'
+    :param name: contact name
+    :param phonebook: phonebook database
+    :param new_contact: 'True' if new 'name' key to be added to 'phonebook' dict
+    :return: updated 'phonebook'
+    """
 
-    contact_data = {"Phone number": "",
-                    "E-mail": "",
-                    "Address": ""
-                    }
+    if not new_contact and not exists(name, phonebook):
+        print(f"= Contact < {name} > doesn't exist =")
+        return phonebook
+    elif not new_contact:
+        contact_data = phonebook[name]
+    else:
+        contact_data = {"Phone number": "",
+                        "E-mail": "",
+                        "Address": ""
+                        }
 
-    if check_available(name, phonebook.keys()):
-        print(f"Enter < {name} > contact data")
+    print(f"Enter < {name} > contact data")
 
-        for info in contact_data.keys():
-            data = input(f"{info}: > ")
-            if data:
-                contact_data[info] = data
+    for info in contact_data.keys():
+        if not new_contact:
+            print(f"CURRENT {info.upper()}: '{contact_data[info]}'")
+        data = input(f"{info}: > ")
+        if data:
+            contact_data[info] = data
 
-        phonebook[name] = contact_data
-        print(f"Contact < {name} > data updated.")
-        save_phonebook(phonebook)  # <HW13> Task 1
+    phonebook[name] = contact_data
+    print(f"= Contact < {name} > data updated. =")
+    save_phonebook(phonebook)  # <HW13> Task 1
 
     return phonebook
 
@@ -123,9 +143,9 @@ def update_contact_data(name: str, phonebook: dict):
 def check_ua_valid(phone_no: str):
     match = re.fullmatch(r"\+380\d{9}|380\d{9}|0\d{9}", phone_no)
     if match:
-        return "Number is UA valid"
+        return "UA valid"
     else:
-        return "Number is not UA valid"
+        return "Not UA valid"
 
 
 @log_name_time
@@ -298,7 +318,8 @@ def show_help():
                  "rename <name>": "change name of existing contact",
                  "search <name>": "show contacts with matches in name",
                  "show <name>": "show selected contact data",
-                 "stats": "show total records quantity"
+                 "stats": "show total records quantity",
+                 "update <name>": "update contact info"
                  }
 
     for item, description in help_info.items():
@@ -353,6 +374,10 @@ def execute_command(command: str, phonebook: dict) -> dict:
             if executable["name"]:
                 return search(executable["name"], phonebook)
             print("= Invalid syntax or no name entry =")
+
+        case "update":
+            if executable["name"]:
+                return update_contact_data(executable["name"], phonebook)
 
         case "help":
             show_help()
