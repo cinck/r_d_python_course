@@ -36,7 +36,7 @@ def firstlastvisible(mails, text: str):
 
     for m in mails:
         at = m.find("@")
-        hiden = m[0]+'*'*(at-1)+"@"+'*'*(len(m)-at+1)+m[-1]
+        hiden = m[0].upper()+'*'*(at-1)+"@"+'*'*(len(m)-at+1)+m[-1].upper()
         text = text.replace(m, hiden)
 
     return text
