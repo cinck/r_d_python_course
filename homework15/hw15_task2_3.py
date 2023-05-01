@@ -14,25 +14,44 @@ def find_mails(text: str):
     :return: set of email addresses
     """
     mails = re.findall(r"\b[\w+.]+@\w+[\w+.]+\w+\b", text)
-    print("Found mails: \n", mails)
     return set(mails)
 
 
 # <HW15> Task 2
-def twostarsbysides(mails, text: str):
+def twostarsbysides(text: str, *args, **kwargs):
     """
-    Returns text
-    :param mails:
-    :param text:
-    :return:
+    Returns text with all found emails replaced with '*@*'.
+    Can receive tuple of specific mails to be found and replaced.
+    :param text: any string
+    :param mails: any list of e-mail addresses
+    :return: modified 'text'
     """
+    if args:
+        mails = args[0]
+    else:
+        mails = find_mails(text)
+
     for mail in mails:
         text = text.replace(mail, "*@*")
+
     return text
 
 
 # <HW15> Task 3
-def firstlastvisible(mails, text: str):
+def firstlastvisible(text: str, *args, **kwargs):
+    """
+    Returns text with all found emails replaced with 'X****@*****X',
+     where 'X' - first and last letter of e-mail.
+    Can receive tuple of specific mails to be found and replaced.
+    :param text: any string
+    :param mails: any list of e-mail addresses
+    :return: modified 'text'
+    """
+
+    if args:
+        mails = args[0]
+    else:
+        mails = find_mails(text)
 
     for m in mails:
         at = m.find("@")
@@ -56,6 +75,9 @@ if __name__ == "__main__":
         print("File not found")
     if text:
         mails = find_mails(text)
-        print("Task 2\n", twostarsbysides(mails, text))
-        print("Task 3\n", firstlastvisible(mails, text))
+        print(mails)
+        print()
+        print("Task 2\n", twostarsbysides(text))
+        print()
+        print("Task 3\n", firstlastvisible(text, mails))
 
