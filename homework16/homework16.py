@@ -47,6 +47,7 @@ class City:
         finally:
             self.set_avg_temp()
 
+    # <HW16> Task 2. Calculate average temperature in the city
     def set_avg_temp(self):
         """
         Calculates average temperature from all received data
@@ -66,6 +67,7 @@ def get_forecast(city):
     return city
 
 
+# <HW16> Task 1. Get weather forecast using multiprocessing
 def execute_in_processes(locations: dict):
     """
     Returns list of City class objects created from Names and coordinates data using multiprocessing
@@ -81,11 +83,12 @@ def execute_in_processes(locations: dict):
     with mp.Pool(5) as pool:
         forecasted = pool.map(get_forecast, cities2)
 
-    print(f"Multiprocessing time: {time.time() - mp_start}")   # Performance time
+    print(f"Multiprocessing time: {time.time() - mp_start}")   # <HW16> Task3. Performance time of multiprocessing
 
     return forecasted
 
 
+# <HW16> Task 1. Get weather forecast using multithreading
 def execute_in_threading(locations: dict):
     """
     Returns list of City class objects created from Names and coordinates data using multithreading
@@ -106,11 +109,12 @@ def execute_in_threading(locations: dict):
     for thread in threads:
         thread.join()
 
-    print(f"Threading time: {time.time() - mt_start}")    # Performance time
+    print(f"Threading time: {time.time() - mt_start}")    # <HW16> Task3. Performance time of multithreading
 
     return cities
 
 
+# <HW16> Task 2. Find the hottest city
 def get_hottest_city(cities: list):
     """
     Returnes City class object with highest average_temp value among list of same objects
@@ -121,6 +125,7 @@ def get_hottest_city(cities: list):
     max_temp_city = None
 
     for city in cities:
+        print(f"Average temperature in {city.name} is {city.average_temp} C")
         if not max_temp_city:
             max_temp_city = city
         elif city.average_temp > max_temp_city.average_temp:
