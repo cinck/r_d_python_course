@@ -12,7 +12,10 @@ import multiprocessing as mp
 
 
 class City:
-
+    """
+    City class object created via city name and its coordinates.
+    Weather temperature forcast can be obtained for specified period of days.
+    """
     def __init__(self, name: str, latitude: float, longitude: float, days=1):
         self.name = name
         self.coordinates = {"latitude": latitude, "longitude": longitude}
@@ -24,6 +27,12 @@ class City:
 #        self.get_temp_forcast(1)
 
     def get_temp_forcast(self, days=1, attempt=0):
+        """
+        Gets hourly weather temperature data for specific location for certain amount of days
+        :param days: (1-10) amount of days for forecast
+        :param attempt: Sequence number of attempts to connect to weather server
+        :return:
+        """
         try:
             resp = requests.get(
                 url="https://api.open-meteo.com/v1/forecast",
@@ -46,16 +55,30 @@ class City:
             self.set_avg_temp()
 
     def set_avg_temp(self):
+        """
+        Calculates average temperature from all received data
+        :return:
+        """
         if self.temp_forecast:
             self.average_temp = round(sum(self.temp_forecast) / len(self.temp_forecast), 2)
 
 
 def get_forecast(city):
+    """
+    Gets temperature forcast for City class object using get_temp_forecast() method
+    :param city: City class object
+    :return:
+    """
     city.get_temp_forcast()
     return city
 
 
 def execute_in_processes(locations: dict):
+    """
+    Returns list of City class objects created from Names and coordinates data using multiprocessing
+    :param locations: {"city name": (latitude, longitude)}
+    :return: list of objects
+    """
     mp_start = time.time()
     cities2 = []
 
@@ -65,32 +88,43 @@ def execute_in_processes(locations: dict):
     with mp.Pool(5) as pool:
         forecasted = pool.map(get_forecast, cities2)
 
-    print(f"Multiprocessing time: {time.time() - mp_start}")
+    print(f"Multiprocessing time: {time.time() - mp_start}")   # Performance time
 
     return forecasted
 
 
 def execute_in_threading(locations: dict):
+    """
+    Returns list of City class objects created from Names and coordinates data using multithreading
+    :param locations: {"city name": (latitude, longitude)}
+    :return:
+    """
     mt_start = time.time()
     cities = []
     threads = []
     counter = 0
+
     for city, coordinates in locations.items():
         cities.append(City(city, *coordinates))
         threads.append(thr.Thread(target=cities[counter].get_temp_forcast, args=(1, )))
         threads[counter].start()
-        # print(f"Cycle: {counter}\nActive threads: {thr.active_count()}")
         counter += 1
 
     for thread in threads:
         thread.join()
 
-    print(f"Threading time: {time.time() - mt_start}")
+    print(f"Threading time: {time.time() - mt_start}")    # Performance time
 
     return cities
 
 
 def get_hottest_city(cities: list):
+    """
+    Returnes City class object with highest average_temp value among list of same objects
+    :param cities: list of CIty class objects
+    :return: City class object
+    """
+
     max_temp_city = None
 
     for city in cities:
