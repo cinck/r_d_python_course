@@ -3,7 +3,7 @@ class Bot:
         self.name = name
 
     def say_name(self):
-        print(f"Hi! My name is {self.name}")
+        print(f"Hi! My name is {self.name}!")
 
     def send_message(self, message: str):
         print(message)
