@@ -21,10 +21,21 @@ class TelegramBot(Bot):
 
     def send_message(self, message: str):
         print(
-            f"Hello members of {self.chat_id} group!\n"
-            f"Here is what I'd like to say:\n{message}\n"
+            f"{self.name} speaking in {self.chat_id} group and says:\n{message}\n"
             f"Message sent via {self.url}"
             )
-        
 
+
+if __name__ == "__main__":
+    bot = Bot("PyBot")
+    bot.say_name()
+    bot.send_message("Greetings to all of you!")
+
+    tg_bot = TelegramBot("TGbot")
+    tg_bot.say_name()
+    tg_bot.send_message("Greetings from TG bot!")
+    tg_bot.set_id("PyChat")
+    tg_bot.set_url("www.somepybotchat.url")
+    print()
+    tg_bot.send_message("Attributes have been set!")
 
