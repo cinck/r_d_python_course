@@ -1,9 +1,19 @@
-class User:
+# <HW19> task 4.
 
+class User:
+    """
+    Class with method to compare names of same class objects
+    """
     def __init__(self, name: str):
         self.name = name
 
     def __eq__(self, other):
+        """
+        Returns 'True' if 'name' attribute of same class object consists
+         of same letters regardless of the letter case.
+        :param other:
+        :return:
+        """
 
         if isinstance(other, User) and self.name.lower() == other.name.lower():
             return True
