@@ -1,4 +1,9 @@
+# <HW19> Task 3
 class MyStr(str):
+    """
+     Redefines __str__ method.
+     Returns upper case string.
+    """
     def __str__(self, *args, **kwargs):
         return super().__str__().upper()
 
