@@ -1,4 +1,4 @@
-
+# <HW19> Task5. Create classes from Task 1 using type() function.
 def constructor(self, name):
     self.name = name
 
