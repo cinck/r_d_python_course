@@ -7,7 +7,7 @@ TheBot = type(
     "Bot",
     (object,),
     {
-        "__init__": constructor,
+        "__init__": lambda self, name: setattr(self, "name", name),
         "say_name": lambda self: print(f"Hi! My name is {self.name}"),
         "send_message": lambda self, message: print(message)
     })
