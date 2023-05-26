@@ -2,7 +2,7 @@
 -- Результат має бути представлений у форматі: users.id, users.first_name, users.last_name, total_purchases
 SELECT users.id, users.first_name, users.last_name, SUM(books.price) as total_purchases
 FROM purchase
-JOIN users ON purchase.user_id= users.id
+JOIN users ON purchase.user_id = users.id
 JOIN books ON purchase.book_id = books.id
 GROUP BY users.id;
 
