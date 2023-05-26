@@ -33,5 +33,5 @@ def get_queries(file_path: str):
 if __name__ == "__main__":
     db_connect = sqli.connect("hw21_db.sqlite")
     cursor = db_connect.cursor()
-    exec_queries = get_queries("queries")
+    exec_queries = get_queries("queries.sql")
     execute_queries(exec_queries)
