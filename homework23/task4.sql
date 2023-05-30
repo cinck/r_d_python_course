@@ -32,4 +32,4 @@ SELECT books.title, count(books.id) as qty_sold
 FROM purchase
 JOIN books ON purchase.book_id = books.id
 GROUP BY books.title
-ORDER BY qty_sold DESC, qty_sold;
+ORDER BY qty_sold DESC;
