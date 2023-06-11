@@ -1,12 +1,110 @@
-h1 {
-    text-align: center;
+body{
+    width: 96%;
+    max-width: 1000px;
+    min-width: 580px;
+    alignment-baseline: center;
+    padding-left: 2%;
+    padding-right: 2%;
+    /*background: #edf5f5;*/
+    align-content: center;
 }
 
-.description {
-    width: 50ch;
+.title-grid {
+    display: flex;
+    flex: auto;
+    background: #5457f6;
+    /*width: 60%;*/
+    /*display: grid;*/
+    /*grid-template-columns: 25% 70%;*/
+}
+
+.name {
+    color: black;
+    padding-top: 20px;
+    padding-left: 10px;
+    text-align: left;
 }
 
 .avatar {
-    width: 200px;
+    flex: auto;
+    max-width: 200px;
+}
 
+.description {
+    width: 90%;
+    text-align: justify;
+    padding-right: 5%;
+    padding-left: 5%;
+}
+
+.homework_marks {
+    width: 90%;
+    margin-left: 2%;
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+
+.container {
+    background: #cdeaef;
+}
+
+.hw-head {
+    text-align: left;
+
+}
+
+.col1 {
+    width: 10%;
+}
+
+.col3 {
+    width: 10%;
+}
+
+.col2 {
+    width: 80%;
+}
+
+.exptable {
+    width: 95%;
+    margin-left: 2%;
+    margin-right: 2%;
+    border-collapse: collapse;
+
+
+}
+
+.wperiod{
+    width: 5%;
+}
+
+.company{
+    width: 10%;
+}
+
+.pos{
+    width: 10%;
+}
+
+.descr {
+    width: 25%;
+}
+
+.ach {
+    width: 25%;
+}
+
+th {
+    border: 2px solid black;
+}
+
+td {
+    padding: 3px;
+    border: 1px solid black;
+    width: 20%;
+}
+
+hr {
+    margin-top: 2%;
+    margin-bottom: 2%;
 }
