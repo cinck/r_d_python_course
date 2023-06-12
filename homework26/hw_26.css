@@ -1,110 +1,236 @@
-body{
-    width: 96%;
-    max-width: 1000px;
-    min-width: 580px;
-    alignment-baseline: center;
-    padding-left: 2%;
-    padding-right: 2%;
-    /*background: #edf5f5;*/
-    align-content: center;
+
+@media screen and (max-width: 599px) {
+    body {
+        /*width: 100%;*/
+        max-width: 600px;
+        min-width: 360px;
+        alignment-baseline: center;
+        padding-left: 1px;
+        padding-right: 1px;
+        /*background: #edf5f5;*/
+        align-content: center;
+    }
+
+    h3 {
+        font-size: 14px;
+    }
+
+    .title-grid {
+        background: #5457f6;
+    }
+
+    .avatar {
+        /*flex: auto;*/
+        width: 50px;
+        height: auto;
+
+    }
+
+    .name {
+        color: black;
+        /*padding-top: 20px;*/
+        /*padding-left: 10px;*/
+        text-align: left;
+        font-size: 18px;
+        /*background: #5457f6;*/
+    }
+
+    .description {
+            width: 90%;
+            font-size: 12px;
+            text-align: justify;
+            padding-right: 5%;
+            padding-left: 5%;
+        }
+
+        .homework_marks {
+            font-size: 12px;
+            margin-left: 2%;
+            border: 2px solid black;
+            border-collapse: collapse;
+        }
+
+        .container {
+            background: #cdeaef;
+        }
+
+        .hw-head {
+            text-align: left;
+
+        }
+
+        .col1 {
+            width: 10%;
+        }
+
+        .col3 {
+            width: 10%;
+        }
+
+        .col2 {
+            width: 80%;
+        }
+
+        .exptable {
+            /*width: 95%;*/
+            margin-left: 1px;
+            margin-right: 1px;
+            border-collapse: collapse;
+            font-size: 10px;
+
+
+        }
+        ul {
+            padding-left: 10px;
+        }
+
+        .wperiod {
+            width: 5%;
+        }
+
+        .company {
+            width: 10%;
+        }
+
+        .pos {
+            width: 10%;
+        }
+
+        .descr {
+            width: 25%;
+        }
+
+        .ach {
+            width: 25%;
+        }
+
+        th {
+            border: 2px solid black;
+        }
+
+        td {
+            padding: 1px;
+            border: 1px solid black;
+            width: 20%;
+        }
+
+        hr {
+            margin-top: 2%;
+            margin-bottom: 2%;
+        }
 }
 
-.title-grid {
-    display: flex;
-    flex: auto;
-    background: #5457f6;
-    /*width: 60%;*/
-    /*display: grid;*/
-    /*grid-template-columns: 25% 70%;*/
-}
-
-.name {
-    color: black;
-    padding-top: 20px;
-    padding-left: 10px;
-    text-align: left;
-}
-
-.avatar {
-    flex: auto;
-    max-width: 200px;
-}
-
-.description {
-    width: 90%;
-    text-align: justify;
-    padding-right: 5%;
-    padding-left: 5%;
-}
-
-.homework_marks {
-    width: 90%;
-    margin-left: 2%;
-    border: 2px solid black;
-    border-collapse: collapse;
-}
-
-.container {
-    background: #cdeaef;
-}
-
-.hw-head {
-    text-align: left;
-
-}
-
-.col1 {
-    width: 10%;
-}
-
-.col3 {
-    width: 10%;
-}
-
-.col2 {
-    width: 80%;
-}
-
-.exptable {
-    width: 95%;
-    margin-left: 2%;
-    margin-right: 2%;
-    border-collapse: collapse;
+    @media screen and (min-width: 600px) {
 
 
-}
+        body {
+            width: 96%;
+            max-width: 1000px;
+            /*min-width: 580px;*/
+            alignment-baseline: center;
+            padding-left: 2%;
+            padding-right: 2%;
+            /*background: #edf5f5;*/
+            align-content: center;
+        }
 
-.wperiod{
-    width: 5%;
-}
+        .title-grid {
+            display: flex;
+            flex: auto;
+            background: #5457f6;
+            /*width: 60%;*/
+            /*display: grid;*/
+            /*grid-template-columns: 25% 70%;*/
+        }
 
-.company{
-    width: 10%;
-}
+        .name {
+            color: black;
+            padding-top: 20px;
+            padding-left: 10px;
+            text-align: left;
+        }
 
-.pos{
-    width: 10%;
-}
+        .avatar {
+            flex: auto;
+            max-width: 200px;
+        }
 
-.descr {
-    width: 25%;
-}
+        .description {
+            width: 90%;
+            text-align: justify;
+            padding-right: 5%;
+            padding-left: 5%;
+        }
 
-.ach {
-    width: 25%;
-}
+        .homework_marks {
+            width: 90%;
+            margin-left: 2%;
+            border: 2px solid black;
+            border-collapse: collapse;
+        }
 
-th {
-    border: 2px solid black;
-}
+        .container {
+            background: #cdeaef;
+        }
 
-td {
-    padding: 3px;
-    border: 1px solid black;
-    width: 20%;
-}
+        .hw-head {
+            text-align: left;
 
-hr {
-    margin-top: 2%;
-    margin-bottom: 2%;
-}
+        }
+
+        .col1 {
+            width: 10%;
+        }
+
+        .col3 {
+            width: 10%;
+        }
+
+        .col2 {
+            width: 80%;
+        }
+
+        .exptable {
+            width: 95%;
+            margin-left: 2%;
+            margin-right: 2%;
+            border-collapse: collapse;
+
+
+        }
+
+        .wperiod {
+            width: 5%;
+        }
+
+        .company {
+            width: 10%;
+        }
+
+        .pos {
+            width: 10%;
+        }
+
+        .descr {
+            width: 25%;
+        }
+
+        .ach {
+            width: 25%;
+        }
+
+        th {
+            border: 2px solid black;
+        }
+
+        td {
+            padding: 3px;
+            border: 1px solid black;
+            width: 20%;
+        }
+
+        hr {
+            margin-top: 2%;
+            margin-bottom: 2%;
+        }
+    }
