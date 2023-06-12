@@ -1,13 +1,11 @@
 
 @media screen and (max-width: 599px) {
     body {
-        /*width: 100%;*/
         max-width: 600px;
         min-width: 360px;
         alignment-baseline: center;
         padding-left: 1px;
         padding-right: 1px;
-        /*background: #edf5f5;*/
         align-content: center;
     }
 
@@ -20,19 +18,14 @@
     }
 
     .avatar {
-        /*flex: auto;*/
         width: 50px;
         height: auto;
-
     }
 
     .name {
         color: black;
-        /*padding-top: 20px;*/
-        /*padding-left: 10px;*/
         text-align: left;
         font-size: 18px;
-        /*background: #5457f6;*/
     }
 
     .description {
@@ -72,7 +65,6 @@
         }
 
         .exptable {
-            /*width: 95%;*/
             margin-left: 1px;
             margin-right: 1px;
             border-collapse: collapse;
@@ -126,11 +118,9 @@
         body {
             width: 96%;
             max-width: 1000px;
-            /*min-width: 580px;*/
             alignment-baseline: center;
             padding-left: 2%;
             padding-right: 2%;
-            /*background: #edf5f5;*/
             align-content: center;
         }
 
@@ -138,9 +128,7 @@
             display: flex;
             flex: auto;
             background: #5457f6;
-            /*width: 60%;*/
-            /*display: grid;*/
-            /*grid-template-columns: 25% 70%;*/
+
         }
 
         .name {
