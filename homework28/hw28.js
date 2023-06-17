@@ -51,3 +51,11 @@ sendMessageBttn.addEventListener("click", (bttnClick) => {
     bttnClick.target.style.backgroundColor = changeColour(sendMessageBttn.style.backgroundColor);
 });
 
+function addRemoveBttn() {
+    if (addFriendBttn.hidden === true) {addFriendBttn.hidden = false}
+    else {addFriendBttn.hidden = true}
+}
+
+const offerJobBttn = document.getElementsByTagName("button")[2];
+offerJobBttn.onclick = (event) => {addRemoveBttn()};
+
