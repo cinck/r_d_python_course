@@ -29,8 +29,8 @@ bttnsDiv2.style.paddingLeft = "5px"
 bttnsDiv2.appendChild(passTaskBttn)
 document.getElementById("studyProgress").appendChild(bttnsDiv2).appendChild(passTaskBttn);
 
-// let frndsQty = Math.round(Math.random() * 200).toString();
-document.getElementById("frnds-qty").innerText = Math.round(Math.random() * 200).toString();
+let frndsQty = Math.round(Math.random() * 200);
+document.getElementById("frnds-qty").innerText = frndsQty.toString();
 
 const addFriendBttn = document.getElementsByTagName("button")[0];
 addFriendBttn.addEventListener("click", (buttonClickEvent) => {
@@ -38,6 +38,11 @@ addFriendBttn.addEventListener("click", (buttonClickEvent) => {
     buttonClickEvent.target.innerText = "Waiting confirmation";
     buttonClickEvent.target.disabled = true;
 });
+
+addFriendBttn.onclick = (event) => {
+    fQty = Number(document.getElementById("frnds-qty").innerText) + 1;
+    document.getElementById("frnds-qty").innerText = fQty;
+};
 
 function changeColour(bttnColour) {
     if (bttnColour === "green") {return "pink"}
