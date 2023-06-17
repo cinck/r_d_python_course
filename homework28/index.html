@@ -6,21 +6,21 @@
     <link rel="stylesheet" href="styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-
+    <script type="text/javascript" src="hw28.js" defer></script>
 
 </head>
 <body>
     BODY
-    <div class="container head-container">
-        HEAD CONTAINER
+    <div class="container" id="header">
+        HEADER CONTAINER
 
     </div>
 
-    <div class="container main-container">
-        <div class="container center-col">
+    <div class="container cntnr-main" id="cntnr-main">
+        <div class="container cntnr-centerCol" id="cntrCol">
             CENTER COL CONTAINER
-            <div class="container user-info">
-                <div class="container ava-name">
+            <div class="container cntnr-userInfo" id="userInfo">
+                <div class="container ava-name" id="ava-name">
                     <img class="avatar" src="https://img.freepik.com/premium-vector/avatar-profile-icon_188544-4755.jpg?w=826">
                     <div class="user-name">
                         <h2>
@@ -28,7 +28,7 @@
                         </h2>
                     </div>
                 </div>
-                <div class="container txt-container">
+                <div class="container cntnr-txt" id="aboutUser">
                     <p>
                         Hi!
                     </p>
@@ -43,17 +43,17 @@
 
 
                 </div>
-                <div class="container bttns-container">
-                    <button type="button" class="btn btn-primary">Add to friends</button>
-                    <button type="button" class="btn btn-primary">Send message</button>
-                    <button type="button" class="btn btn-primary">Offer a job</button>
-                </div>
+<!--                <div class="container cntnr-bttns">-->
+<!--                    <button type="button" class="btn btn-primary">Add to friends</button>-->
+<!--                    <button type="button" class="btn btn-primary">Send message</button>-->
+<!--                    <button type="button" class="btn btn-primary">Offer a job</button>-->
+<!--                </div>-->
             </div>
             <hr>
-            <div class="container study-progress">
+            <div class="container study-progress" id="studyProgress">
                 <h4>Study progress</h4>
-                <div class="container table-container">
-                    <table class="homework_marks">
+                <div class="container table-container" id="tableContainer">
+                    <table class="homework_marks" id="homeworkMarks">
 
                          <thead class="hw-head">
                              <tr>
@@ -62,7 +62,7 @@
                                  <th class="col3 theader">Mark</th>
                                  </tr>
                          </thead>
-                         <tbody>
+                         <tbody id="homeworks">
                              <tr>
                                  <td class="col1">
                                      3
@@ -118,7 +118,7 @@
                                     5/5
                                 </td>
                             </tr>
-                                    <tr>
+                             <tr>
                                 <td class="col1">
                                     8
                                 </td>
@@ -128,8 +128,8 @@
                                 <td class="col3">
                                     7/7
                                 </td>
-                            </tr>
-                                    <tr>
+                             </tr>
+                             <tr>
                                 <td class="col1">
                                     10
                                 </td>
@@ -139,8 +139,8 @@
                                 <td class="col3">
                                     7/7
                                 </td>
-                            </tr>
-                                    <tr>
+                             </tr>
+                             <tr>
                                 <td class="col1">
                                     11
                                 </td>
@@ -150,8 +150,8 @@
                                 <td class="col3">
                                     6/6
                                 </td>
-                            </tr>
-                                    <tr>
+                             </tr>
+                             <tr>
                                 <td class="col1">
                                     12
                                 </td>
@@ -161,8 +161,8 @@
                                 <td class="col3">
                                     7/7
                                 </td>
-                            </tr>
-                                    <tr>
+                             </tr>
+                             <tr>
                                 <td class="col1">
                                     13
                                 </td>
@@ -172,7 +172,7 @@
                                 <td class="col3">
                                     5/5
                                 </td>
-                            </tr>
+                             </tr>
                                     <tr>
                                 <td class="col1">
                                     15
@@ -241,11 +241,11 @@
                             </tr>
 
                             </tbody>
-                        </table>
+                    </table>
                 </div>
 
                 <div class="container bttns-container">
-                    <button type="button" class="btn btn-primary">Pass task</button>
+<!--                    <button type="button" class="btn btn-primary">Pass task</button>-->
                 </div>
 
             </div>
@@ -270,13 +270,15 @@
                 </div>
             </div>
         </div>
-        <div class="container right-col">
+        <div class="container right-col" id="right-col">
             RIGHT COL CONTAINER
             <div class="container">
                 Statistics
-                <div class="container cntnr-stats">
-                    <div class="cntnr-txt">Total friends:</div>
-                <div class="cntnr-txt frnds-qty">11</div>
+                <div class="container cntnr-stats" id="cntnr-stats">
+                    <div class="cntnr-txt">Total friends: </div>
+                <div class="cntnr-txt frnds-qty">
+                    <p id="frnds-qty"></p>
+                </div>
                 </div>
 
             </div>
