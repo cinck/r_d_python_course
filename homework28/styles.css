@@ -1,0 +1,108 @@
+.container {
+    /*border: 1px solid black;*/
+    margin: 2px;
+
+    /*background: antiquewhite;*/
+}
+
+.header {
+    height: 40px;
+    background-color: cornflowerblue;
+}
+
+body {
+    /*border: 1px black;*/
+    background-color: #c0c06b;
+
+}
+
+.avatar {
+    max-width: 200px;
+}
+
+.cntnr-main {
+    display: flex;
+    /*background: floralwhite;*/
+}
+
+.cntnr-centerCol {
+    background-color: papayawhip;
+}
+
+.cntnr-userInfo {
+    background-color: #dff3f6;
+}
+
+table {
+    border: 2px solid black;
+}
+
+thead {
+    border: 1px solid black;
+    text-align: center;
+}
+
+
+tr {
+    border: 1px solid black;
+    padding: 3px;
+}
+
+td {
+    border: 1px solid black;
+    padding: 3px;
+}
+
+/*.left-col {*/
+/*    flex: 1 1 25%;*/
+/*}*/
+
+.center-col {
+    flex: 1 1 70%;
+    background: ghostwhite;
+}
+
+.right-col {
+    flex: 1 1 30%;
+}
+
+.date-company-pos {
+    display: flex;
+}
+
+.cntnr-stats {
+    display: flex;
+}
+
+.work-record {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.job-descr {
+    padding-top: 5px;
+}
+
+.right-col {
+    background-color: #cdeaef;
+}
+
+footer {
+    background-color: aquamarine;
+    height: 30px;
+}
+
+.cntnr-stats {
+
+    background-color: aqua;
+    font-size: 20px;
+}
+
+.frnds-qty {
+    display: flex;
+
+}
+
+.cntnr-bttns {
+    align-content: end;
+}
