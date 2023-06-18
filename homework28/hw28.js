@@ -18,7 +18,7 @@ btnNames.map(buttonName => {
 let userInfo = document.getElementById("userInfo");
 userInfo.appendChild(bttnsDiv);
 
-let passTaskBttn = document.createElement("button");
+const passTaskBttn = document.createElement("button");
 passTaskBttn.className = "btn btn-success";
 passTaskBttn.innerText = "Pass task";
 
@@ -28,6 +28,18 @@ bttnsDiv2.id = "add-task"
 bttnsDiv2.style.paddingLeft = "5px"
 bttnsDiv2.appendChild(passTaskBttn)
 document.getElementById("studyProgress").appendChild(bttnsDiv2).appendChild(passTaskBttn);
+
+function addRow() {
+    newRow = document.createElement("tr");
+    newRow.appendChild(document.createElement("td")).innerText = Math.round(Math.random() * 100).toString();
+    newRow.appendChild(document.createElement("td")).innerText = "Task name";
+    newRow.appendChild(document.createElement("td")).innerText = "10/10"
+    document.getElementById("homeworks").appendChild(newRow);
+}
+
+passTaskBttn.onclick = (event) => {
+    addRow()
+}
 
 let frndsQty = Math.round(Math.random() * 200);
 document.getElementById("frnds-qty").innerText = frndsQty.toString();
