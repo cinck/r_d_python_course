@@ -35,11 +35,21 @@ body {
 
 table {
     border: 2px solid black;
+    border-collapse: collapse;
 }
 
 thead {
-    border: 1px solid black;
+    border: 2px solid black;
     text-align: center;
+}
+
+th {
+    border: 1px solid black;
+}
+
+tbody {
+    /*border: 1px solid black;*/
+    border-collapse: collapse;
 }
 
 
@@ -52,10 +62,6 @@ td {
     border: 1px solid black;
     padding: 3px;
 }
-
-/*.left-col {*/
-/*    flex: 1 1 25%;*/
-/*}*/
 
 .center-col {
     flex: 1 1 70%;

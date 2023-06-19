@@ -2,9 +2,14 @@ const cntnrDiv = document.createElement("div")
 cntnrDiv.className = "container"
 
 const bttnsDiv = document.createElement("div");
+bttnsDiv.style.display = "flex"
 bttnsDiv.className = "container cntnr-bttns"
 bttnsDiv.idName = "buttons";
 bttnsDiv.textAlign = "center";
+
+const bttnSpacer1 = document.createElement("div");
+bttnSpacer1.style.flex = "1 1 auto"
+bttnsDiv.appendChild(bttnSpacer1);
 
 // <HW28> Task 1: Add buttons
 btnNames = ["Add friend", "Send message", "Offer a job"]
@@ -12,6 +17,7 @@ btnNames.map(buttonName => {
     let button = document.createElement("button");
     button.className = "btn btn-primary";
     button.innerText = buttonName;
+    button.style.flex = "0 1 max-content"
     button.style.margin = "3px";
     bttnsDiv.appendChild(button);
 })
@@ -19,16 +25,23 @@ btnNames.map(buttonName => {
 let userInfo = document.getElementById("userInfo");
 userInfo.appendChild(bttnsDiv);
 
-
-// <HW28> Task 6. Pass task button
-const passTaskBttn = document.createElement("button");
-passTaskBttn.className = "btn btn-success";
-passTaskBttn.innerText = "Pass task";
-
 const bttnsDiv2 = document.createElement("div")
+bttnsDiv2.style.display = "flex"
 bttnsDiv2.className = "container cntnr-bttns"
 bttnsDiv2.id = "add-task"
 bttnsDiv2.style.paddingLeft = "5px"
+
+const bttnSpacer2 = document.createElement("div");
+bttnSpacer2.style.flex = "1 1 auto"
+
+// <HW28> Task 6. Pass task button
+const passTaskBttn = document.createElement("button");
+passTaskBttn.style.flex = "0 1 max-content"
+passTaskBttn.className = "btn btn-success";
+passTaskBttn.innerText = "Pass task";
+
+
+bttnsDiv2.appendChild(bttnSpacer2)
 bttnsDiv2.appendChild(passTaskBttn)
 document.getElementById("studyProgress").appendChild(bttnsDiv2).appendChild(passTaskBttn);
 
