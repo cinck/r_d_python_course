@@ -4,6 +4,11 @@ import requests
 
 
 def get_city_data(city_name: str):
+    """
+    Returns city data from UR as Dict() or None if unsuccessful
+    :param city_name: city name
+    :return:
+    """
     try:
         result = requests.get(
             url="https://geocoding-api.open-meteo.com/v1/search",
@@ -13,7 +18,7 @@ def get_city_data(city_name: str):
             }
         )
     except Exception:
-        print("Failed to get")
+        print("Failed to connect")
         return None
     try:
         data = result.json()["results"]
@@ -23,7 +28,12 @@ def get_city_data(city_name: str):
     return data
 
 
-def decode_wthr_condition(code):
+def decode_wthr_condition(code: int):
+    """
+    Returns weather characteristic acc to WMO Weather interpretation codes (WW)
+    :param code:
+    :return:
+    """
     if code in range(10):
         return "good"
     elif code in range(41, 50):
@@ -41,6 +51,11 @@ def decode_wthr_condition(code):
 
 
 def get_weather_in(city_name: str):
+    """
+    Displays weather status in requested city
+    :param city_name:
+    :return:
+    """
     city_data = get_city_data(city_name)
     print(city_data)
     if not city_data:
