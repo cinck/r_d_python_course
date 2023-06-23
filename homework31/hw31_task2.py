@@ -52,12 +52,12 @@ def decode_wthr_condition(code: int):
 
 def get_weather_in(city_name: str):
     """
-    Displays weather status in requested city
+    Returns weather status in requested city
     :param city_name:
     :return:
     """
     city_data = get_city_data(city_name)
-    print(city_data)
+    # print(city_data)
     if not city_data:
         return None
     try:
@@ -74,14 +74,29 @@ def get_weather_in(city_name: str):
         return None
     finally:
         pass
-    print(resp.json())
-    temp = resp.json()["current_weather"]["temperature"]
-    weather_code = resp.json()["current_weather"]["weathercode"]
+
+    current_weather = resp.json()["current_weather"]
+    return current_weather
+
+
+def show_weather_in(city_name):
+    """
+    Shows weather details
+    :param city_name:
+    :return:
+    """
+    current_weather = get_weather_in(city_name)
+    if not current_weather:
+        return None
+    temp = current_weather["temperature"]
+    weather_code = current_weather["weathercode"]
     condition = decode_wthr_condition(weather_code)
     print(f"Current weather in {city_name} is {condition}. Temperature: {temp} degrees.")
-    return temp, condition
+    print("Weather details:")
+    for p, v in current_weather.items():
+        print(f"{p}: {v}")
 
 
 if __name__ == "__main__":
     city = input("Enter city name: > ").capitalize()
-    get_weather_in(city)
+    show_weather_in(city)
