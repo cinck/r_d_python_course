@@ -16,7 +16,7 @@ def random_url():
     return random.choice(urls)
 
 
-def get_response_from(url: str):
+def get_response_from_url(url: str):
     """Returns request.get() object if connection successful"""
     try:
         result = requests.get(url=url)
