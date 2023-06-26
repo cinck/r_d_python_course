@@ -50,7 +50,7 @@ def decode_wthr_condition(code: int):
         return "unknown"
 
 
-def get_weather_in(city_name: str):
+def get_weather_by_city_name(city_name: str):
     """
     Returns weather status in requested city
     :param city_name:
