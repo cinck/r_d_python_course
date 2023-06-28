@@ -21,10 +21,10 @@ dictConfig({
 
 app = Flask(__name__)
 
-
+# <HW32> Task 3: Endpoint returns HTML
 @app.route('/')
 def root_page():
-    app.logger.info('Request to endpoint "/"')
+    app.logger.info('Request to endpoint "/"')   # <HW32> Task 4: Logging in function
     return '''
     <div><a href='http://127.0.0.1:5000/hello'>Hello page</a></div>
     <div>-</div>
@@ -33,25 +33,25 @@ def root_page():
     <div><a href='http://127.0.0.1:5000/html'>Return html</a></div>
     '''
 
-
-@app.route('/hello')
+# <HW32> Task 2: Endpoint '/hello' returns 'Hello world'
+@app.route('/hello', methods=['GET'])
 def hello_world():
-    app.logger.info('Request to endpoint "/hello"')
-    return '<h1>Hello World!</h1>'
+    app.logger.info('Request to endpoint "/hello"')   # <HW32> Task 4: Logging in function
+    return 'Hello World!'
 
-
+# <HW32> Task 3: Endpoint returns JSON
 @app.route('/json')
 def return_json():
-    app.logger.info('Request to endpoint "/json"')
+    app.logger.info('Request to endpoint "/json"')    # <HW32> Task 4: Logging in function
     return [
         {'item 1': {'parameter 1': 'value 1', 'parameter 2': 'value 2'}},
         {'item 2': {'nested item': {'parameter 1': 'value 1', 'parameter 2': 'value 2'}}}
     ]
 
-
+# <HW32> Task 3: Endpoint returns HTML
 @app.route('/html')
 def return_html():
-    app.logger.info('Request to endpoint "/html"')
+    app.logger.info('Request to endpoint "/html"')    # <HW32> Task 4: Logging in function
     return '''
     <h1>This is HTML return</h1>
     '''
