@@ -1,11 +1,12 @@
+from flask import abort, request
 from app import app
 from random import choice, randint
 
 
-def random_name():
+def get_random_name() -> str:
     """
-    Returns randomly generated name
-    :return:
+    Returns randomly generated name as 'Name Surname' string
+    :return: str
     """
     names = (
         "Aron", "Andrew", "Abby", "Bob", "Bill", "Bertha", "Caren", "Cindy", "Cody", "Dave", "Diana", "David",
@@ -30,10 +31,26 @@ def random_name():
     return f"{choice(names)} {choice(surnames)}"
 
 
-@app.get("/users")
-def get_users():
-    usernames = []
-    for i in range(randint(1, 20)):
-        usernames.append(f"<h4>{i+1}. {random_name()}</h4>")
+@app.get('/users/', defaults={'user_id': 0})   # Doesn't work without / at the route end i.e.'/users'
+@app.get('/users/<int:user_id>')
+def get_users(user_id):
+    if not user_id:
+        count = randint(1, 30)
+    else:
+        if user_id % 2 != 0:
+            abort(404, 'Not found')
+        elif user_id:
+            user_name = get_random_name()
+            return f'<div><h1>User #{user_id}:</h1><h4>{user_name}</h4></div>', 200
 
-    return "".join(usernames)
+    usernames = []
+    for i in range(count):
+        usernames.append(f"<h4>{i + 1}. {get_random_name()}</h4>")
+
+    response = f'''
+    <div>
+    <h1>Users:</h1>
+    {"".join(usernames)}
+    </div>
+    '''
+    return response, 200
