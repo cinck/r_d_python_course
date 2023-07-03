@@ -137,9 +137,23 @@ def get_random_book():
     return f'{choice(books)}'
 
 
+def get_count():
+    if 'count' in request.args.keys():
+        try:
+            count = int(request.args['count'])
+        except ValueError:
+            return abort(400, 'Wrong parameters data')
+    else:
+        count = randint(1, 30)
+    if not count:
+        return abort(400, "Parameter can't be 0")
+    return count
+
+
 @app.get('/users/')
 def get_users():
-    count = randint(1, 30)
+    count = get_count()
+
     usernames = []
     for i in range(count):
         usernames.append(f"<h4>{i + 1}. {get_random_name()}</h4>")
@@ -165,7 +179,7 @@ def get_user(user_id):
 
 @app.get('/books/')
 def get_books():
-    count = randint(1, 30)
+    count = get_count()
     book_list = []
     for i in range(count):
         book_list.append(f'<li>{get_random_book()}</li>')
@@ -191,3 +205,21 @@ def get_book(title: str):
         '''
     return response, 200
 
+
+@app.get('/params')
+def get_params():
+    table_data = []
+    for param, value in request.args.items():
+        t_row = f'''
+        <tr><td>{param}</td><td>{value}</td></tr>
+        '''
+        table_data.append(t_row)
+    response = f'''
+        <table>
+            <tr><th>Parameter</th><th>Value</th></tr>
+            {''.join(table_data)}
+                
+        </table>    
+        '''
+
+    return response, 200
