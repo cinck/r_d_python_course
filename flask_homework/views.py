@@ -31,26 +31,27 @@ def get_random_name() -> str:
     return f"{choice(names)} {choice(surnames)}"
 
 
-@app.get('/users/', defaults={'user_id': 0})   # Doesn't work without / at the route end i.e.'/users'
-@app.get('/users/<int:user_id>')
-def get_users(user_id):
-    if not user_id:
-        count = randint(1, 30)
-    else:
-        if user_id % 2 != 0:
-            abort(404, 'Not found')
-        elif user_id:
-            user_name = get_random_name()
-            return f'<div><h1>User #{user_id}:</h1><h4>{user_name}</h4></div>', 200
-
+@app.get('/users/')
+def get_users():
+    count = randint(1, 30)
     usernames = []
     for i in range(count):
         usernames.append(f"<h4>{i + 1}. {get_random_name()}</h4>")
 
     response = f'''
-    <div>
-    <h1>Users:</h1>
-    {"".join(usernames)}
-    </div>
-    '''
+           <div>
+           <h1>Users:</h1>
+           {"".join(usernames)}
+           </div>
+           '''
     return response, 200
+
+
+@app.get('/users/<int:user_id>')
+def get_user(user_id):
+    if user_id % 2 != 0:
+        abort(404, 'Not found')
+    elif user_id:
+        user_name = get_random_name()
+        response = f'<div><h1>User #{user_id}:</h1><h4>{user_name}</h4></div>'
+        return response, 200
