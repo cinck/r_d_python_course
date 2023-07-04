@@ -287,10 +287,21 @@ def login():
             '''
         return response
     elif request.method == 'POST':
-        user_name = request.form['name']
-        password = request.form['password']
+        try:
+            user_name = request.form['name']
+            password = request.form['password']
+        except KeyError:
+            abort(400, 'No data entered')
         validation = validate_login(user_name, password)
         if validation['status']:
             return redirect('/users?login=pass')
         else:
             abort(400, validation['description'])
+
+
+@app.route('/errors/<int:code>')
+def get_custom_error(code):
+    if code == 500:
+        return abort(500)
+    else:
+        return abort(404)
