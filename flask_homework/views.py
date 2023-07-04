@@ -1,4 +1,4 @@
-from flask import abort, request
+from flask import abort, request, redirect
 from app import app
 from random import choice, randint
 
@@ -223,3 +223,70 @@ def get_params():
         '''
 
     return response, 200
+
+
+def validate_login(name: str, password: str) -> dict:
+    """
+    Returns {'status': bool, 'description': str} dict.
+    'status' = FAULT by default and TRUE if all checks passed.
+    'description':
+    'Invalid name'  - name less than 5 characters;
+    'Invalid password' - password less than 8 symbols;
+    'Inappropriate password' - there is no upper case and lower case letter and digit in string;
+    'Success'- all checks passed when name is 5 or more characters, password is 8 or more characters
+    and includes at least one lowercase letter, one upper case letter and one digit.
+    :param name:
+    :param password:
+    :return:
+    """
+    status = False
+    if not name or len(name) < 5:
+        description = "Invalid name"
+    elif not password or len(password) < 8:
+        description = "Invalid password"
+    else:
+        l_letters = 'qwertyuioplkjhgfdsazxcvbnm'
+        u_letters = l_letters.upper()
+        nums = '1234567890'
+        upper, lower, digits = [], [], []
+        for i in password:
+            if i in u_letters:
+                upper.append(i)
+            elif i in l_letters:
+                lower.append(i)
+            elif i in nums:
+                digits.append(i)
+        if len(upper) < 1 or len(lower) < 1 or len(digits) < 1:
+            description = "Inappropriate password "
+        else:
+            status = True
+            description = "Success"
+    return {'status': status, 'description': description}
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'GET':
+        response = f'''
+            <div>
+                <h1>Login</h1>
+                    <form action="/login" method="POST">
+                        <label for="username">Name:</label>
+                        <input type="text" name="name" required>
+                    
+                        <label for="password">Password:</label>
+                        <input type="password" name="password" required>
+                    
+                        <input type="submit" value="Submit">
+                    </form>
+            </div>
+            '''
+        return response
+    elif request.method == 'POST':
+        user_name = request.form['name']
+        password = request.form['password']
+        validation = validate_login(user_name, password)
+        if validation['status']:
+            return redirect('/users')
+        else:
+            abort(400, validation['description'])
