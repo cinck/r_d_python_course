@@ -150,20 +150,24 @@ def get_count():
     return count
 
 
-@app.get('/users/')
+@app.get('/users/')     # Doesn't work without / in the end ('/users'). Why?
 def get_users():
     count = get_count()
-
+    logged_in = ""
+    if "login" in request.args.keys():
+        login_status = request.args['login']
+        logged_in = f'<h3>Login {login_status}</h3>'
     usernames = []
     for i in range(count):
         usernames.append(f"<h4>{i + 1}. {get_random_name()}</h4>")
 
     response = f'''
-           <div>
-           <h1>Users:</h1>
-           {"".join(usernames)}
-           </div>
-           '''
+        {logged_in}    
+        <div>
+        <h1>Users:</h1>
+        {"".join(usernames)}
+        </div>
+    '''
     return response, 200
 
 
@@ -271,11 +275,11 @@ def login():
             <div>
                 <h1>Login</h1>
                     <form action="/login" method="POST">
-                        <label for="username">Name:</label>
-                        <input type="text" name="name" required>
+                        <label for="name">Name:</label>
+                        <input type="text" name="name" id="name" required>
                     
                         <label for="password">Password:</label>
-                        <input type="password" name="password" required>
+                        <input type="password" name="password" id="password" required>
                     
                         <input type="submit" value="Submit">
                     </form>
@@ -287,6 +291,6 @@ def login():
         password = request.form['password']
         validation = validate_login(user_name, password)
         if validation['status']:
-            return redirect('/users')
+            return redirect('/users?login=pass')
         else:
             abort(400, validation['description'])
