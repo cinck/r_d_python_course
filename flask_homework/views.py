@@ -31,7 +31,11 @@ def get_random_name() -> str:
     return f"{choice(names)} {choice(surnames)}"
 
 
-def get_random_book():
+def get_random_book() -> str:
+    """
+    Returns string with random book description.
+    :return:
+    """
     books = [
         "1984 by George Orwell, England, (1903-1950)",
         "A Doll's House by Henrik Ibsen, Norway (1828-1906)",
@@ -138,6 +142,11 @@ def get_random_book():
 
 
 def get_count():
+    """
+    Extracts 'count' parameter from request, aborts if parameter validation fails
+     or returns random number if parameter is not in request.
+    :return:
+    """
     if 'count' in request.args.keys():
         try:
             count = int(request.args['count'])
@@ -152,6 +161,10 @@ def get_count():
 
 @app.get('/users/')     # Doesn't work without / in the end ('/users'). Why?
 def get_users():
+    """
+    Returns HTML code with list of random amount of random names.
+    :return:
+    """
     count = get_count()
     logged_in = ""
     if "login" in request.args.keys():
@@ -173,6 +186,11 @@ def get_users():
 
 @app.get('/users/<int:user_id>')
 def get_user(user_id):
+    """
+    Returns HTML with random user if even user_id parameter passed, otherwise aborts with 404 fault.
+    :param user_id:
+    :return:
+    """
     if user_id % 2 != 0:
         abort(404, 'Not found')
     elif user_id:
@@ -183,6 +201,10 @@ def get_user(user_id):
 
 @app.get('/books/')
 def get_books():
+    """
+    Returns HTML lis of random quantity of random book names.
+    :return:
+    """
     count = get_count()
     book_list = []
     for i in range(count):
@@ -201,6 +223,11 @@ def get_books():
 
 @app.get('/books/<string:title>')
 def get_book(title: str):
+    """
+    Returns HTML with capitalized parameter 'title'
+    :param title:
+    :return:
+    """
     response = f'''
         <div>
             <h1>Book title:</h1>
@@ -212,6 +239,10 @@ def get_book(title: str):
 
 @app.get('/params')
 def get_params():
+    """
+    Returns HTML table of request parameters.
+    :return:
+    """
     table_data = []
     for param, value in request.args.items():
         t_row = f'''
@@ -270,6 +301,11 @@ def validate_login(name: str, password: str) -> dict:
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    """
+    GET method returns HTML form for login
+    POST method redirects to '/users' if login data verified successfully or aborts with error code 400.
+    :return:
+    """
     if request.method == 'GET':
         response = f'''
             <div>
@@ -301,6 +337,11 @@ def login():
 
 @app.route('/errors/<int:code>')
 def get_custom_error(code):
+    """
+    Returns errors 404 and 500
+    :param code:
+    :return:
+    """
     if code == 500:
         return abort(500)
     else:
@@ -309,6 +350,10 @@ def get_custom_error(code):
 
 @app.get('/')
 def get_root_page():
+    """
+    Returns HTML with links to other pages
+    :return:
+    """
     pages = ['login', 'users', 'books', 'params', 'errors']
     references = []
     for i in pages:
