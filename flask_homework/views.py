@@ -141,6 +141,7 @@ def get_random_book() -> str:
     return f'{choice(books)}'
 
 
+# <HW33> Task 7. /users and /books return requested amount of items by 'count' parameter
 def get_count():
     """
     Extracts 'count' parameter from request, aborts if parameter validation fails
@@ -159,13 +160,14 @@ def get_count():
     return count
 
 
+# <HW33> Task 1. Function '-GET/users'
 @app.get('/users/')     # Doesn't work without / in the end ('/users'). Why?
 def get_users():
     """
     Returns HTML code with list of random amount of random names.
     :return:
     """
-    count = get_count()
+    count = get_count()     # <HW33> Task 7. /users and /books return requested amount of items by 'count' parameter
     logged_in = ""
     if "login" in request.args.keys():
         login_status = request.args['login']
@@ -184,6 +186,7 @@ def get_users():
     return response, 200
 
 
+# <HW33> Task 2. Function '-GET/users' + url-parameter
 @app.get('/users/<int:user_id>')
 def get_user(user_id):
     """
@@ -199,13 +202,14 @@ def get_user(user_id):
         return response, 200
 
 
+# <HW33> Task 1. Function '-GET/books'
 @app.get('/books/')
 def get_books():
     """
     Returns HTML lis of random quantity of random book names.
     :return:
     """
-    count = get_count()
+    count = get_count()     # <HW33> Task 7. /users and /books return requested amount of items by 'count' parameter
     book_list = []
     for i in range(count):
         book_list.append(f'<li>{get_random_book()}</li>')
@@ -221,6 +225,7 @@ def get_books():
     return response, 200
 
 
+# <HW33> Task 2. Function '-GET/books' + url-parameter
 @app.get('/books/<string:title>')
 def get_book(title: str):
     """
@@ -237,6 +242,7 @@ def get_book(title: str):
     return response, 200
 
 
+# <HW33> Task 3. Function '-GET/params'
 @app.get('/params')
 def get_params():
     """
@@ -260,6 +266,7 @@ def get_params():
     return response, 200
 
 
+# <HW33> Task 8. Login validation.
 def validate_login(name: str, password: str) -> dict:
     """
     Returns {'status': bool, 'description': str} dict.
@@ -299,6 +306,7 @@ def validate_login(name: str, password: str) -> dict:
     return {'status': status, 'description': description}
 
 
+# <HW33> Task 4. Function GET, POST /login
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     """
@@ -328,7 +336,7 @@ def login():
             password = request.form['password']
         except KeyError:
             abort(400, 'No data entered')
-        validation = validate_login(user_name, password)
+        validation = validate_login(user_name, password)    # <HW33> Task 8. Login validation.
         if validation['status']:
             return redirect('/users?login=pass')
         else:
@@ -348,10 +356,11 @@ def get_custom_error(code):
         return abort(404)
 
 
+# <HW33> Task 6. Function '-GET/'
 @app.get('/')
 def get_root_page():
     """
-    Returns HTML with links to other pages
+    Returns HTML with links to other pages: '/login', '/users', '/books', '/params', '/errors'
     :return:
     """
     pages = ['login', 'users', 'books', 'params', 'errors']
