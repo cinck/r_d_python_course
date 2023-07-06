@@ -1,4 +1,4 @@
-from flask import abort, request, redirect
+from flask import abort, request, redirect, render_template
 from app import app
 from random import choice, randint
 
@@ -363,22 +363,11 @@ def get_root_page():
     Returns HTML with links to other pages: '/login', '/users', '/books', '/params', '/errors'
     :return:
     """
-    pages = ['login', 'users', 'books', 'params', 'errors']
-    references = []
-    for i in pages:
-        references.append(
-            f"""
-            <a href='http://127.0.0.1:5000/{i}'>
-                <button style='padding: 5px; margin: 4px'>{i.capitalize()}</button>
-            </a>
-            """
-        )
-    response = f'''
-    <div style='padding: 5px'>
-        {"".join(references)}
-    </div>
-    <div style='padding: 5px'><a href='http://127.0.0.1:5000/hello'>Hello page</a></div>
-    <div style='padding: 5px'><a href='http://127.0.0.1:5000/json'>Return json</a></div>
-    <div style='padding: 5px'><a href='http://127.0.0.1:5000/html'>Return html</a></div>
-    '''
-    return response
+    pages = ['login', 'users', 'books', 'params', 'errors', 'hello', 'json', 'html']
+
+    context = {
+        'title': __name__,
+        'pages': pages,
+
+    }
+    return render_template('index.html', **context)

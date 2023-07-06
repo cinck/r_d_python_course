@@ -2,9 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>{{ title }}</title>
 </head>
 <body>
-
+    <div class="container" id="header">
+        {% for page in pages %}
+        <a href='http://127.0.0.1:5000/{{ page }}'>
+                <button style='padding: 5px; margin: 4px'>{{ page|capitalize }}</button>
+        </a>
+        {% endfor %}
+    </div>
 </body>
 </html>
