@@ -10,7 +10,7 @@
         <h3>{{ logged_in }}</h3>
     </div>
     <div>
-        <h1>Users:</h1>
+        <h1>{{ block_header }}</h1>
         {% for id, name in usernames.items() %}
         <h4>{{ id }}. {{ name }}</h4>
         {% endfor %}

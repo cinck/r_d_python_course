@@ -208,6 +208,7 @@ def get_users():
 
     context = {
         'logged_in': logged_in,
+        'block_header': 'Users',
         'usernames': usernames
     }
 
