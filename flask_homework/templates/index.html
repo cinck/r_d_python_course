@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ title }}</title>
+    <title>{{ title|capitalize }}</title>
 </head>
 <body>
     <div class="container" id="header">
@@ -11,6 +11,9 @@
                 <button style='padding: 5px; margin: 4px'>{{ page|capitalize }}</button>
         </a>
         {% endfor %}
+    </div>
+    <div>
+        <h1>{{ welcome_text }}</h1>
     </div>
 </body>
 </html>
