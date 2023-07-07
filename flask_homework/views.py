@@ -293,8 +293,12 @@ def get_params():
                 
         </table>    
         '''
-
-    return response, 200
+    context = {
+        'title': 'Parameters',
+        'block_title': 'Accepted arguments',
+        'args': request.args,
+    }
+    return render_template('params/params.html', **context), 200
 
 
 # <HW33> Task 8. Login validation.

@@ -1,10 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Title</title>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="../../static/styles.css">
 </head>
 <body>
+    <div>
+        <a href='http://127.0.0.1:5000/'>Home</a>
+        <h3>{{ logged_in }}</h3>
+    </div>
+    <div>
+        <h1>{{ block_title }}</h1>
+        <table>
+            <tr><th>Parameter</th><th>Value</th></tr>
+        <tbody>
+            {% for param, value in args.items() %}
+                <tr><td>{{ param }}</td><td>{{ value }}</td></tr>
+            {% endfor %}
+        </tbody>
+
+        </table>
+    </div>
 
 </body>
 </html>
