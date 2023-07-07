@@ -226,9 +226,14 @@ def get_user(user_id):
     if user_id % 2 != 0:
         abort(404, 'Not found')
     elif user_id:
-        user_name = get_random_name()
-        response = f'<div><h1>User #{user_id}:</h1><h4>{user_name}</h4></div>'
-        return response, 200
+        logged_in = "Not logged in"
+        user_name = {user_id: get_random_name()}
+        context = {
+            'logged_in': logged_in,
+            'block_header': 'User',
+            'usernames': user_name
+        }
+        return render_template('users/users.html', **context), 200
 
 
 # <HW33> Task 1. Function '-GET/books'
