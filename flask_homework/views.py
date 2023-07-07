@@ -159,15 +159,7 @@ def get_random_book() -> str:
     return f'{choice(books)}'
 
 
-def get_books_list(qty: int):
-    books_list = []
-    for _ in range(qty):
-        books_list.append(get_random_name())
-    return books_list
-
-
 users_list = get_names_list(100)
-books_list = get_books_list(100)
 
 
 # <HW33> Task 7. /users and /books return requested amount of items by 'count' parameter
@@ -207,8 +199,9 @@ def get_users():
         usernames[i+1] = get_random_name()
 
     context = {
+        'title': 'Users',
         'logged_in': logged_in,
-        'block_header': 'Users',
+        'block_title': 'Users',
         'usernames': usernames
     }
 
@@ -229,8 +222,9 @@ def get_user(user_id):
         logged_in = "Not logged in"
         user_name = {user_id: get_random_name()}
         context = {
+            'title': 'Users',
             'logged_in': logged_in,
-            'block_header': 'User',
+            'block_title': 'User',
             'usernames': user_name
         }
         return render_template('users/users.html', **context), 200
@@ -246,17 +240,14 @@ def get_books():
     count = get_count()     # <HW33> Task 7. /users and /books return requested amount of items by 'count' parameter
     book_list = []
     for i in range(count):
-        book_list.append(f'<li>{get_random_book()}</li>')
+        book_list.append(get_random_book())
 
-    response = f'''
-        <div>
-            <ul>
-            <h1>Books:</h1>
-            {"".join(book_list)}
-            </ul>
-        </div>
-        '''
-    return response, 200
+    context = {
+        'title': 'Books',
+        'block_title': 'Books:',
+        'book_list': book_list
+    }
+    return render_template('books/books.html', **context), 200
 
 
 # <HW33> Task 2. Function '-GET/books' + url-parameter
@@ -273,7 +264,13 @@ def get_book(title: str):
             <h2>'{title.capitalize()}'</h2>
         </div>
         '''
-    return response, 200
+    book_list = [title.capitalize()]
+    context = {
+        'title': 'Books',
+        'block_title': 'Selected book',
+        'book_list': book_list
+    }
+    return render_template('books/books.html', **context), 200
 
 
 # <HW33> Task 3. Function '-GET/params'
