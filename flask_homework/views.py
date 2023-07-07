@@ -350,21 +350,12 @@ def login():
     :return:
     """
     if request.method == 'GET':
-        response = f'''
-            <div>
-                <h1>Login</h1>
-                    <form action="/login" method="POST">
-                        <label for="name">Name:</label>
-                        <input type="text" name="name" id="name" required>
-                    
-                        <label for="password">Password:</label>
-                        <input type="password" name="password" id="password" required>
-                    
-                        <input type="submit" value="Submit">
-                    </form>
-            </div>
-            '''
-        return response
+        context = {
+            'title': 'Login',
+            'block_title': 'Login',
+        }
+        return render_template('login/login.html', **context), 200
+
     elif request.method == 'POST':
         try:
             user_name = request.form['name']

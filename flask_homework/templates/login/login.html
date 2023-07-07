@@ -2,9 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="../../static/styles.css">
 </head>
 <body>
+    <div>
+        <a href='http://127.0.0.1:5000/'>Home</a>
+        <h3>{{ logged_in }}</h3>
+    </div>
+    <div>
+        <h1>{{ block_title }}</h1>
+        <form action="/login" method="POST">
+            <label for="name">Name:</label>
+            <input type="text" name="name" id="name" required>
+
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" required>
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
 
 </body>
 </html>
