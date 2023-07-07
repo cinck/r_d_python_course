@@ -3,6 +3,17 @@ from app import app
 from random import choice, randint
 
 
+class Context:
+    def __init__(self):
+        self.data = {}
+
+    def update(self, param: str, value: any):
+        self.data[param] = value
+
+
+# context = Context()
+
+
 def get_random_name() -> str:
     """
     Returns randomly generated name as 'Name Surname' string
@@ -29,6 +40,13 @@ def get_random_name() -> str:
         "Willniev", "Waters", "Yangsted", "Yeden", "Yuong", "Zidane", "Zandaya", "Zacher"
     )
     return f"{choice(names)} {choice(surnames)}"
+
+
+def get_names_list(qty: int):
+    names_list = []
+    for _ in range(qty):
+        names_list.append(get_random_name())
+    return names_list
 
 
 def get_random_book() -> str:
@@ -141,6 +159,17 @@ def get_random_book() -> str:
     return f'{choice(books)}'
 
 
+def get_books_list(qty: int):
+    books_list = []
+    for _ in range(qty):
+        books_list.append(get_random_name())
+    return books_list
+
+
+users_list = get_names_list(100)
+books_list = get_books_list(100)
+
+
 # <HW33> Task 7. /users and /books return requested amount of items by 'count' parameter
 def get_count():
     """
@@ -171,19 +200,18 @@ def get_users():
     logged_in = ""
     if "login" in request.args.keys():
         login_status = request.args['login']
-        logged_in = f'<h3>Login {login_status}</h3>'
-    usernames = []
-    for i in range(count):
-        usernames.append(f"<h4>{i + 1}. {get_random_name()}</h4>")
+        logged_in = f'Login {login_status}'
 
-    response = f'''
-        {logged_in}    
-        <div>
-        <h1>Users:</h1>
-        {"".join(usernames)}
-        </div>
-    '''
-    return response, 200
+    usernames = {}
+    for i in range(count):
+        usernames[i+1] = get_random_name()
+
+    context = {
+        'logged_in': logged_in,
+        'usernames': usernames
+    }
+
+    return render_template('users/users.html', **context), 200
 
 
 # <HW33> Task 2. Function '-GET/users' + url-parameter
@@ -364,10 +392,11 @@ def get_root_page():
     :return:
     """
     pages = ['login', 'users', 'books', 'params', 'errors', 'hello', 'json', 'html']
+    welcome_text = 'Welcome to my page!'
 
     context = {
-        'title': __name__,
+        'title': 'Homepage',
         'pages': pages,
-
+        'welcome_text': welcome_text
     }
     return render_template('index.html', **context)

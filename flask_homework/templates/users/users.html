@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <div>
+        <a href='http://127.0.0.1:5000/'>Home</a>
+        <h3>{{ logged_in }}</h3>
+    </div>
+    <div>
+        <h1>Users:</h1>
+        {% for id, name in usernames.items() %}
+        <h4>{{ id }}. {{ name }}</h4>
+        {% endfor %}
+    </div>
+</body>
+</html>
