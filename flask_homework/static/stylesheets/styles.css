@@ -5,6 +5,10 @@ body {
     padding-top: 10px;
 }
 
+.homeLink {
+    color: darkblue;
+}
+
 th, td {
     padding: 5px;
 }
@@ -21,9 +25,12 @@ th, td {
     background-color: #67c5ff;
     padding-top: 10px;
     padding-bottom: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
 }
 
 .blockItem {
     background-color: #feff7e;
-    padding-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
 }
