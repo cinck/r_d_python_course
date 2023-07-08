@@ -1,6 +1,8 @@
-from flask import abort, request, redirect, render_template
+from flask import abort, request, redirect, render_template, session
 from app import app
 from random import choice, randint
+from sessioninfo import *
+from contextdata import *
 
 
 class Context:
@@ -188,6 +190,10 @@ def get_users():
     Returns HTML code with list of random amount of random names.
     :return:
     """
+    context = ContextIndex(title='Users')
+    if not context.user_name:
+        return redirect('/login')
+
     count = get_count()     # <HW33> Task 7. /users and /books return requested amount of items by 'count' parameter
     logged_in = ""
     if "login" in request.args.keys():
@@ -198,14 +204,16 @@ def get_users():
     for i in range(count):
         usernames[i+1] = get_random_name()
 
-    context = {
-        'title': 'Users',
-        'logged_in': logged_in,
-        'block_title': 'Users',
-        'usernames': usernames
-    }
+    context.update('block_title', 'Users')
+    context.update('usernames', usernames)
+    # context = {
+    #     'title': 'Users',
+    #     'logged_in': logged_in,
+    #     'block_title': 'Users',
+    #     'usernames': usernames
+    # }
 
-    return render_template('users/users.html', **context), 200
+    return render_template('users/users.html', **context.data), 200
 
 
 # <HW33> Task 2. Function '-GET/users' + url-parameter
@@ -216,18 +224,24 @@ def get_user(user_id):
     :param user_id:
     :return:
     """
+    context = ContextIndex(title='Users')
+    if not context.user_name:
+        return redirect('/login')
+
     if user_id % 2 != 0:
         abort(404, 'Not found')
     elif user_id:
         logged_in = "Not logged in"
-        user_name = {user_id: get_random_name()}
-        context = {
-            'title': 'Users',
-            'logged_in': logged_in,
-            'block_title': 'User',
-            'usernames': user_name
-        }
-        return render_template('users/users.html', **context), 200
+        u_name = {user_id: get_random_name()}
+        context.update('block_title', 'User')
+        context.update('usernames', u_name)
+        # context = {
+        #     'title': 'Users',
+        #     'logged_in': logged_in,
+        #     'block_title': 'User',
+        #     'usernames': user_name
+        # }
+        return render_template('users/users.html', **context.data), 200
 
 
 # <HW33> Task 1. Function '-GET/books'
@@ -237,17 +251,22 @@ def get_books():
     Returns HTML lis of random quantity of random book names.
     :return:
     """
+    context = ContextIndex(title='Books')
+    if not context.user_name:
+        return redirect('/login')
+
     count = get_count()     # <HW33> Task 7. /users and /books return requested amount of items by 'count' parameter
     book_list = []
     for i in range(count):
         book_list.append(get_random_book())
-
-    context = {
-        'title': 'Books',
-        'block_title': 'Books:',
-        'book_list': book_list
-    }
-    return render_template('books/books.html', **context), 200
+    context.update('block_title', 'Books:')
+    context.update('book_list', book_list)
+    # context = {
+    #     'title': 'Books',
+    #     'block_title': 'Books:',
+    #     'book_list': book_list
+    # }
+    return render_template('books/books.html', **context.data), 200
 
 
 # <HW33> Task 2. Function '-GET/books' + url-parameter
@@ -258,19 +277,17 @@ def get_book(title: str):
     :param title:
     :return:
     """
-    response = f'''
-        <div>
-            <h1>Book title:</h1>
-            <h2>'{title.capitalize()}'</h2>
-        </div>
-        '''
+
+    context = ContextIndex(title='Books')
+    if not context.user_name:
+        return redirect('/login')
+
     book_list = [title.capitalize()]
-    context = {
-        'title': 'Books',
-        'block_title': 'Selected book',
-        'book_list': book_list
-    }
-    return render_template('books/books.html', **context), 200
+    context.update('title', 'Books')
+    context.update('block_title', 'Selected book')
+    context.update('book_list', book_list)
+
+    return render_template('books/books.html', **context.data), 200
 
 
 # <HW33> Task 3. Function '-GET/params'
@@ -280,25 +297,15 @@ def get_params():
     Returns HTML table of request parameters.
     :return:
     """
-    table_data = []
-    for param, value in request.args.items():
-        t_row = f'''
-        <tr><td>{param}</td><td>{value}</td></tr>
-        '''
-        table_data.append(t_row)
-    response = f'''
-        <table>
-            <tr><th>Parameter</th><th>Value</th></tr>
-            {''.join(table_data)}
-                
-        </table>    
-        '''
-    context = {
-        'title': 'Parameters',
-        'block_title': 'Accepted arguments',
-        'args': request.args,
-    }
-    return render_template('params/params.html', **context), 200
+
+    context = ContextIndex(title='Parameters')
+    if not context.user_name:
+        return redirect('/login')
+
+    context.update('block_title', 'Accepted arguments')
+    context.update('args', request.args)
+
+    return render_template('params/params.html', **context.data), 200
 
 
 # <HW33> Task 8. Login validation.
@@ -341,6 +348,23 @@ def validate_login(name: str, password: str) -> dict:
     return {'status': status, 'description': description}
 
 
+# def start_session(name: str):
+#     session['name'] = name
+#     return session['name']
+#
+#
+# def verify_session():
+#     if not session['name']:
+#         return redirect('/login')
+#     return session['name']
+#
+#
+# @app.route('/logout')
+# def end_session():
+#     session['name'] = None
+#     return redirect('/login')
+
+
 # <HW33> Task 4. Function GET, POST /login
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -349,22 +373,23 @@ def login():
     POST method redirects to '/users' if login data verified successfully or aborts with error code 400.
     :return:
     """
+    context = ContextInit()
+    if verify_session():
+        redirect('/')
     if request.method == 'GET':
-        context = {
-            'title': 'Login',
-            'block_title': 'Login',
-        }
-        return render_template('login/login.html', **context), 200
+        context.update('title', 'Login')
+        context.update('block_title', 'Login')
+        return render_template('login/login.html', **context.data), 200
 
     elif request.method == 'POST':
-        try:
-            user_name = request.form['name']
-            password = request.form['password']
-        except KeyError:
+        user_name = request.form.get('name')
+        password = request.form.get('password')
+        if not user_name or not password:
             abort(400, 'No data entered')
         validation = validate_login(user_name, password)    # <HW33> Task 8. Login validation.
         if validation['status']:
-            return redirect('/users?login=pass')
+            start_session(user_name)     # Session added
+            return redirect('/users')
         else:
             abort(400, validation['description'])
 
@@ -389,12 +414,10 @@ def get_root_page():
     Returns HTML with links to other pages: '/login', '/users', '/books', '/params', '/errors'
     :return:
     """
-    pages = ['login', 'users', 'books', 'params', 'errors', 'hello', 'json', 'html']
-    welcome_text = 'Welcome to my page!'
+    context = ContextIndex('Homepage')
+    welcome_text = 'Welcome to homepage page!'
+    if not context.user_name:
+        welcome_text = 'Welcome! Please login!'
+    context.update('welcome_text', welcome_text)
 
-    context = {
-        'title': 'Homepage',
-        'pages': pages,
-        'welcome_text': welcome_text
-    }
-    return render_template('index.html', **context)
+    return render_template('index.html', **context.data)
