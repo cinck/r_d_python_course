@@ -189,7 +189,7 @@ def get_users():
     context.update('block_title', 'Users')
     context.update('usernames', usernames)
 
-    return render_template('users/users.html', **context.data), 200
+    return render_template('users/users.html', **context.data), 200     # <HW34> Task 1. Template and context
 
 
 # <HW33> Task 2. Function '-GET/users' + url-parameter
@@ -211,7 +211,7 @@ def get_user(user_id):
         context.update('block_title', 'User')
         context.update('usernames', u_name)
 
-        return render_template('users/users.html', **context.data), 200
+        return render_template('users/users.html', **context.data), 200     # <HW34> Task 1. Template and context
 
 
 # <HW33> Task 1. Function '-GET/books'
@@ -232,7 +232,7 @@ def get_books():
     context.update('block_title', 'Books:')
     context.update('book_list', book_list)
 
-    return render_template('books/books.html', **context.data), 200
+    return render_template('books/books.html', **context.data), 200     # <HW34> Task 1. Template and context
 
 
 # <HW33> Task 2. Function '-GET/books' + url-parameter
@@ -253,7 +253,7 @@ def get_book(title: str):
     context.update('block_title', 'Selected book')
     context.update('book_list', book_list)
 
-    return render_template('books/books.html', **context.data), 200
+    return render_template('books/books.html', **context.data), 200     # <HW34> Task 1. Template and context
 
 
 # <HW33> Task 3. Function '-GET/params'
@@ -271,7 +271,7 @@ def get_params():
     context.update('block_title', 'Accepted arguments')
     context.update('args', request.args)
 
-    return render_template('params/params.html', **context.data), 200
+    return render_template('params/params.html', **context.data), 200     # <HW34> Task 1. Template and context
 
 
 # <HW33> Task 8. Login validation.
@@ -328,7 +328,7 @@ def login():
     if request.method == 'GET':
         context.update('title', 'Login')
         context.update('block_title', 'Login')
-        return render_template('login/login.html', **context.data), 200
+        return render_template('login/login.html', **context.data), 200     # <HW34> Task 1. Template and context
 
     elif request.method == 'POST':
         user_name = request.form.get('name')
@@ -369,4 +369,4 @@ def get_root_page():
         welcome_text = 'Welcome! Please login!'
     context.update('welcome_text', welcome_text)
 
-    return render_template('index.html', **context.data)
+    return render_template('index.html', **context.data)     # <HW34> Task 1. Template and context
