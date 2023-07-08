@@ -177,7 +177,7 @@ def get_users():
     :return:
     """
     context = ContextIndex(title='Users')
-    if not context.user_name:
+    if not context.user_name:       # <HW34> Task 3. Check for username in session and redirect to /login if not
         return redirect('/login')
 
     count = get_count()     # <HW33> Task 7. /users and /books return requested amount of items by 'count' parameter
@@ -201,7 +201,7 @@ def get_user(user_id):
     :return:
     """
     context = ContextIndex(title='Users')
-    if not context.user_name:
+    if not context.user_name:       # <HW34> Task 3. Check for username in session and redirect to /login if not
         return redirect('/login')
 
     if user_id % 2 != 0:
@@ -222,7 +222,7 @@ def get_books():
     :return:
     """
     context = ContextIndex(title='Books')
-    if not context.user_name:
+    if not context.user_name:       # <HW34> Task 3. Check for username in session and redirect to /login if not
         return redirect('/login')
 
     count = get_count()     # <HW33> Task 7. /users and /books return requested amount of items by 'count' parameter
@@ -245,7 +245,7 @@ def get_book(title: str):
     """
 
     context = ContextIndex(title='Books')
-    if not context.user_name:
+    if not context.user_name:       # <HW34> Task 3. Check for username in session and redirect to /login if not
         return redirect('/login')
 
     book_list = [title.capitalize()]
@@ -265,7 +265,7 @@ def get_params():
     """
 
     context = ContextIndex(title='Parameters')
-    if not context.user_name:
+    if not context.user_name:       # <HW34> Task 3. Check for username in session and redirect to /login if not
         return redirect('/login')
 
     context.update('block_title', 'Accepted arguments')
@@ -322,7 +322,7 @@ def login():
     POST method redirects to '/users' if login data verified successfully or aborts with error code 400.
     :return:
     """
-    context = ContextInit()
+    context = ContextInit()       # <HW34> Task 3. Check for username in session
     if verify_session():
         redirect('/')
     if request.method == 'GET':
