@@ -5,17 +5,6 @@ from sessioninfo import *
 from contextdata import *
 
 
-class Context:
-    def __init__(self):
-        self.data = {}
-
-    def update(self, param: str, value: any):
-        self.data[param] = value
-
-
-# context = Context()
-
-
 def get_random_name() -> str:
     """
     Returns randomly generated name as 'Name Surname' string
