@@ -4,6 +4,7 @@ from app import app
 app.secret_key = b"secret_key"
 
 
+# <HW34> Task 2. Adding username to session
 def start_session(name: str):
     session['name'] = name
     return session['name']

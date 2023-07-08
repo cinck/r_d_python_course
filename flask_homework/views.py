@@ -337,7 +337,7 @@ def login():
             abort(400, 'No data entered')
         validation = validate_login(user_name, password)    # <HW33> Task 8. Login validation.
         if validation['status']:
-            start_session(user_name)     # Session added
+            start_session(user_name)     # <HW34> Task 2. Adding username to session
             return redirect('/users')
         else:
             abort(400, validation['description'])
