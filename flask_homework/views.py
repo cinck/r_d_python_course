@@ -323,8 +323,8 @@ def login():
     :return:
     """
     context = ContextInit()       # <HW34> Task 3. Check for username in session
-    if verify_session():
-        redirect('/')
+    if context.user_name:
+        return redirect('/')
     if request.method == 'GET':
         context.update('title', 'Login')
         context.update('block_title', 'Login')
@@ -364,7 +364,7 @@ def get_root_page():
     :return:
     """
     context = ContextIndex('Homepage')
-    welcome_text = 'Welcome to homepage page!'
+    welcome_text = 'Welcome to homepage!'
     if not context.user_name:
         welcome_text = 'Welcome! Please login!'
     context.update('welcome_text', welcome_text)

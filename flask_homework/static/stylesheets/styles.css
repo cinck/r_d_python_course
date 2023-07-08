@@ -2,6 +2,7 @@
 
 body {
     background-color: #5c6581;
+    padding-top: 10px;
 }
 
 th, td {
@@ -17,12 +18,12 @@ th, td {
 }
 
 .header {
-    background-color: #feff7e;
+    background-color: #67c5ff;
     padding-top: 10px;
     padding-bottom: 10px;
 }
 
 .blockItem {
-    background-color: #67e2ff;
+    background-color: #feff7e;
     padding-bottom: 10px;
 }
