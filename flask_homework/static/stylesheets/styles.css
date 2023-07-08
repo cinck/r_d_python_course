@@ -1,3 +1,26 @@
+body {
+    background-color: #5c6581;
+}
+
 th, td {
     padding: 5px;
+}
+
+.homeLink {
+    padding: 5px;
+}
+
+.user-greeting {
+    padding: 5px;
+}
+
+.header {
+    background-color: #feff7e;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.blockItem {
+    background-color: #67e2ff;
+    padding-bottom: 10px;
 }
