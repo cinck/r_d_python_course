@@ -16,6 +16,7 @@ def verify_session():
     return session['name']
 
 
+# <HW34> Task 4. /logout endpoint
 @app.route('/logout')
 def end_session():
     session['name'] = None

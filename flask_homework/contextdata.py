@@ -32,7 +32,7 @@ class ContextBasic(ContextInit):
 
     def __init__(self):
         super().__init__()
-        if self.user_name:
+        if self.user_name:       # <HW34> Task 4. Checks for username in session and places 'login' or 'logout' link
             self.pages[-1] = 'logout'
         else:
             self.pages[-1] = 'login'
