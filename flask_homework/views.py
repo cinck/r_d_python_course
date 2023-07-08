@@ -229,7 +229,7 @@ def get_books():
     book_list = []
     for i in range(count):
         book_list.append(get_random_book())
-    context.update('block_title', 'Books:')
+    context.update('block_title', 'Books')
     context.update('book_list', book_list)
 
     return render_template('books/books.html', **context.data), 200     # <HW34> Task 1. Template and context
