@@ -161,9 +161,6 @@ def get_random_book() -> str:
     return f'{choice(books)}'
 
 
-users_list = get_names_list(100)
-
-
 # <HW33> Task 7. /users and /books return requested amount of items by 'count' parameter
 def get_count():
     """
@@ -195,10 +192,6 @@ def get_users():
         return redirect('/login')
 
     count = get_count()     # <HW33> Task 7. /users and /books return requested amount of items by 'count' parameter
-    logged_in = ""
-    if "login" in request.args.keys():
-        login_status = request.args['login']
-        logged_in = f'Login {login_status}'
 
     usernames = {}
     for i in range(count):
@@ -206,12 +199,6 @@ def get_users():
 
     context.update('block_title', 'Users')
     context.update('usernames', usernames)
-    # context = {
-    #     'title': 'Users',
-    #     'logged_in': logged_in,
-    #     'block_title': 'Users',
-    #     'usernames': usernames
-    # }
 
     return render_template('users/users.html', **context.data), 200
 
@@ -231,16 +218,10 @@ def get_user(user_id):
     if user_id % 2 != 0:
         abort(404, 'Not found')
     elif user_id:
-        logged_in = "Not logged in"
         u_name = {user_id: get_random_name()}
         context.update('block_title', 'User')
         context.update('usernames', u_name)
-        # context = {
-        #     'title': 'Users',
-        #     'logged_in': logged_in,
-        #     'block_title': 'User',
-        #     'usernames': user_name
-        # }
+
         return render_template('users/users.html', **context.data), 200
 
 
@@ -261,11 +242,7 @@ def get_books():
         book_list.append(get_random_book())
     context.update('block_title', 'Books:')
     context.update('book_list', book_list)
-    # context = {
-    #     'title': 'Books',
-    #     'block_title': 'Books:',
-    #     'book_list': book_list
-    # }
+
     return render_template('books/books.html', **context.data), 200
 
 
@@ -346,23 +323,6 @@ def validate_login(name: str, password: str) -> dict:
             status = True
             description = "Success"
     return {'status': status, 'description': description}
-
-
-# def start_session(name: str):
-#     session['name'] = name
-#     return session['name']
-#
-#
-# def verify_session():
-#     if not session['name']:
-#         return redirect('/login')
-#     return session['name']
-#
-#
-# @app.route('/logout')
-# def end_session():
-#     session['name'] = None
-#     return redirect('/login')
 
 
 # <HW33> Task 4. Function GET, POST /login
