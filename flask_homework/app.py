@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 from logging.config import dictConfig
 
@@ -65,4 +66,5 @@ def return_html():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    debug_mode = os.getenv('DEBUG') == 'True'
+    app.run(debug=debug_mode)

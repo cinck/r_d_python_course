@@ -1,7 +1,11 @@
+import os
+from dotenv import load_dotenv
 from flask import redirect, session
 from app import app
 
-app.secret_key = b"secret_key"
+load_dotenv()
+
+app.secret_key = os.getenv('SECRET_KEY')
 
 
 # <HW34> Task 2. Adding username to session
