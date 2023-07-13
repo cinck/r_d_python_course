@@ -1,5 +1,3 @@
-from flask import redirect, session
-from app import app
 from sessioninfo import *
 
 # <HW34> Task 1. Context for templates.
@@ -50,5 +48,3 @@ class ContextIndex(ContextBasic):
         super().__init__()
 
         self.data['title'] = title
-
-
