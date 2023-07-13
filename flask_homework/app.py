@@ -1,7 +1,7 @@
-import os
 from flask import Flask
 from logging.config import dictConfig
-
+from flask_sqlalchemy import SQLAlchemy
+from config import AppConfigData
 
 dictConfig({
     'version': 1,
@@ -19,11 +19,16 @@ dictConfig({
     }
 })
 
-
+db = SQLAlchemy()
 app = Flask(__name__)
+from sessioninfo import *
 from views import *
 from ehandlers import *
-from sessioninfo import *
+
+app.config["SQLALCHEMY_DATABASE_URI"] = AppConfigData().DATABASE
+db.init_app(app)
+with app.app_context():
+    db.create_all()
 
 
 # <HW32> Task 3: Endpoint returns HTML
@@ -66,5 +71,4 @@ def return_html():
 
 
 if __name__ == '__main__':
-    debug_mode = os.getenv('DEBUG') == 'True'
-    app.run(debug=debug_mode)
+    app.run(**AppConfigData().config)
