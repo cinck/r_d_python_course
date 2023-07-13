@@ -26,7 +26,7 @@ class ContextBasic(ContextInit):
     Basic context class to generate general templated data
     """
 
-    pages = ['users', 'books', 'params', 'errors', 'hello', 'json', 'html', 'login-logout']
+    pages = ['users', 'books', 'params', 'errors', 'login-logout']
 
     def __init__(self):
         super().__init__()
