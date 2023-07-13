@@ -1,11 +1,8 @@
-import os
-from dotenv import load_dotenv
+from config import AppConfigData
 from flask import redirect, session
 from app import app
 
-load_dotenv()
-
-app.secret_key = os.getenv('SECRET_KEY')
+app.secret_key = AppConfigData.SECRET_KEY
 
 
 # <HW34> Task 2. Adding username to session
@@ -15,9 +12,13 @@ def start_session(name: str):
 
 
 def verify_session():
+    try:
+        username = session['name']
+    except KeyError:
+        return None
     if not session['name']:
         return None
-    return session['name']
+    return username
 
 
 # <HW34> Task 4. /logout endpoint
