@@ -9,8 +9,8 @@ class AppConfigData:
     DEBUG = os.getenv('DEBUG') == 'True'
     SECRET_KEY = os.getenv('SECRET_KEY')
     HOST = os.getenv('HOST')
-    PORT = (os.getenv('PORT'))
-    DATABASE = os.getenv('DATABASE')
+    PORT = int(os.getenv('PORT'))
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE')
 
     def __init__(self):
         self.config = self.set_config()
@@ -21,7 +21,7 @@ class AppConfigData:
             'host': self.HOST,
             'port': self.PORT,
             'secret_key': self.SECRET_KEY,
-            # 'SQLALCHEMY_DATABASE_URI': self.DATABASE
+            'SQLALCHEMY_DATABASE_URI': self.SQLALCHEMY_DATABASE_URI
         }
         return config
 
