@@ -95,6 +95,27 @@ def get_books():
     return render_template('books/books.html', **context.data), 200     # <HW34> Task 1. Template and context
 
 
+@app.get('/books/<int:book_id>')
+def get_book_by_id(book_id):
+    context = ContextIndex(title='Books')
+    if not context.user_name:
+        return redirect('/login')
+
+    if book_id <= 0:
+        abort(404, "ID can't be less than 1")
+
+    b_data = db.session.execute(db.select(Books).where(Books.id == book_id)).scalar()
+    if b_data:
+        book = [f'-= {b_data.id} =- {b_data.title}, {b_data.author}, {b_data.year} - price: {b_data.price} UAH']
+    else:
+        abort(404, 'ID out of range')
+
+    context.update('block_title', 'Books')
+    context.update('book_list', book)
+
+    return render_template('books/books.html', **context.data), 200
+
+
 # <HW33> Task 2. Function '-GET/books' + url-parameter
 @app.get('/books/<string:title>')
 def get_book(title: str):
