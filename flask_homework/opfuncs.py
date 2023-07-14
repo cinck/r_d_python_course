@@ -161,9 +161,9 @@ def get_count():
         except ValueError:
             return abort(400, 'Wrong parameters data')
     else:
-        count = randint(1, 30)
-    if not count:
-        return abort(400, "Parameter can't be 0")
+        return 0
+    if count < 0:
+        return abort(400, "Parameter can't be less than 1")
     return count
 
 

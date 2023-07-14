@@ -27,7 +27,7 @@ def get_users():
     for item in users:
         usernames[item.id] = f'{item.first_name} {item.last_name}, {item.age}'
         i += 1
-        if i >= count:
+        if count != 0 and i >= count:
             break
     if count > i:
         usernames[''] = f' = {i} of {i} showed ='
