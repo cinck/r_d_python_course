@@ -1,6 +1,13 @@
 from flask import request, abort
 from random import choice, randint
 from app import app
+from time import strftime, gmtime, localtime
+
+
+def get_time_data(timestamp):
+    timestamp = str(timestamp)[:-3]
+    time_data = int(timestamp)
+    return strftime("%d %b %Y %H:%M:%S", gmtime(time_data))
 
 
 def get_random_name() -> str:
