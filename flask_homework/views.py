@@ -130,11 +130,31 @@ def get_book(title: str):
         return redirect('/login')
 
     book_list = [title.capitalize()]
-    context.update('title', 'Books')
+    context.update('title', 'Book')
     context.update('block_title', 'Selected book')
     context.update('book_list', book_list)
 
     return render_template('books/books.html', **context.data), 200     # <HW34> Task 1. Template and context
+
+
+@app.get('/purchases')
+def get_purchases():
+    context = ContextIndex(title='Purchases')
+    if not context.user_name:
+        return redirect('/login')
+
+    purchases = db.session.execute(db.select(Purchases)).scalars()
+    purchases_list = []
+    i = 0
+    for item in purchases:
+        p_data = f'{item.id}. Customer#{item.user_id} bought book#{item.book_id}, {get_time_data(item.date)}'
+        purchases_list.append(p_data)
+        i += 1
+
+    context.update('block_title', 'Purchases')
+    context.update('purchases', purchases_list)
+
+    return render_template('purchases/purchases.html', **context.data), 200
 
 
 # <HW33> Task 3. Function '-GET/params'
