@@ -77,9 +77,18 @@ def get_books():
         return redirect('/login')
 
     count = get_count()     # <HW33> Task 7. /users and /books return requested amount of items by 'count' parameter
+
     book_list = []
-    for i in range(count):
-        book_list.append(get_random_book())
+    books = db.session.execute(db.select(Books)).scalars()
+
+    i = 0
+    for item in books:
+        b_data = f'{item.title}, {item.author}, {item.year} - price: {item.price} UAH'
+        book_list.append(b_data)
+        i += 1
+        if count != 0 and i >= count:
+            break
+
     context.update('block_title', 'Books')
     context.update('book_list', book_list)
 
