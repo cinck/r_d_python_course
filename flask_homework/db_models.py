@@ -23,14 +23,14 @@ class Books(db.Model):
     year = db.Column(db.String,)
     price = db.Column(db.Integer,)
     publishing_house_id = db.Column(db.Integer, db.ForeignKey('publishing_houses.id'), nullable=False)
-    publishing_house = db.relationship('publishing_houses')
+    publishing_house = db.relationship('PublishingHouses')
 
 
 # purchases: id, user_id, book_id, date
 class Purchases(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    user = db.relationship('users')
+    user = db.relationship('Users')
     book_id = db.Column(db.Integer, db.ForeignKey('books.id'))
-    book = db.relationship('books')
+    book = db.relationship('Books')
     date = db.Column(db.TIMESTAMP)
