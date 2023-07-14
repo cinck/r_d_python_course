@@ -162,7 +162,7 @@ def get_count():
             return abort(400, 'Wrong parameters data')
     else:
         return 0
-    if count < 0:
+    if count <= 0:
         return abort(400, "Parameter can't be less than 1")
     return count
 
