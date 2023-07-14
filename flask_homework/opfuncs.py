@@ -162,9 +162,9 @@ def get_count():
      or returns random number if parameter is not in request.
     :return:
     """
-    if 'count' in request.args.keys():
+    if 'size' in request.args.keys():       # <HW35> Task 6. 'count' parameter renamed to 'size'
         try:
-            count = int(request.args['count'])
+            count = int(request.args['size'])       # <HW35> Task 6. 'count' parameter renamed to 'size'
         except ValueError:
             return abort(400, 'Wrong parameters data')
     else:
