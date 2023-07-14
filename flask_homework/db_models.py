@@ -1,5 +1,5 @@
 from app import db
-
+from time import time, asctime, gmtime, localtime
 
 class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -33,4 +33,4 @@ class Purchases(db.Model):
     user = db.relationship('Users')
     book_id = db.Column(db.Integer, db.ForeignKey('books.id'))
     book = db.relationship('Books')
-    date = db.Column(db.TIMESTAMP)
+    date = db.Column(db.Integer, default=time())
