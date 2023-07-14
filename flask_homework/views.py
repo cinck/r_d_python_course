@@ -1,8 +1,9 @@
 from flask import abort, request, redirect, render_template, session
-from app import app
+from app import app, db
 from opfuncs import *
 from sessioninfo import *
 from contextdata import *
+from db_models import *
 
 
 # <HW33> Task 1. Function '-GET/users'
@@ -19,8 +20,16 @@ def get_users():
     count = get_count()     # <HW33> Task 7. /users and /books return requested amount of items by 'count' parameter
 
     usernames = {}
-    for i in range(count):
-        usernames[i+1] = get_random_name()
+    users = db.session.execute(db.select(Users)).scalars()
+    print(type(users))
+    i = 0
+    for item in users:
+        usernames[item.id] = f'{item.first_name} {item.last_name}, {item.age}'
+        i += 1
+        if i >= count:
+            break
+    if count > i:
+        usernames[''] = f' = {i} of {i} showed ='
 
     context.update('block_title', 'Users')
     context.update('usernames', usernames)
