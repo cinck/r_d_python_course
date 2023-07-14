@@ -1,5 +1,7 @@
+
 <!DOCTYPE html>
 <html lang="en">
+{% block head %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,19 +9,27 @@
     <title>{{ title|capitalize }}</title>
     <link rel="stylesheet" href="/static/stylesheets/styles.css">
 </head>
+{% endblock %}
 <body>
+{% block header %}
     <div class="container header" id="header">
-        <a class="homeLink" href='http://127.0.0.1:5000/'>Home</a>
+        <a class="homeLink" href='http://{{ root_url }}/'>Home</a>
         {% for page in pages %}
-        <a href='http://127.0.0.1:5000/{{ page }}'>
+        <a href='http://{{ root_url }}/{{ page }}'>
             <button type="button" class="btn btn-primary">{{ page|upper }}</button></a>
         {% endfor %}
         {% if user_name %}
         <h4 class="user-greeting">Hello {{ user_name }}!</h4>
         {% endif %}
     </div>
-    <div class="container blockItem">
-        <h1>{{ welcome_text }}</h1>
+{% endblock %}
     </div>
+
+    <div class="container blockItem">
+        {% block blockitem %}
+        <h1>{{ welcome_text }}</h1>
+        {% endblock %}
+    </div>
+
 </body>
 </html>
