@@ -143,6 +143,8 @@ def get_purchases():
     if not context.user_name:
         return redirect('/login')
 
+    count = get_count()
+
     purchases = db.session.execute(db.select(Purchases)).scalars()
     purchases_list = []
     i = 0
@@ -150,6 +152,10 @@ def get_purchases():
         p_data = f'{item.id}. Customer#{item.user_id} bought book#{item.book_id}, {get_time_data(item.date)}'
         purchases_list.append(p_data)
         i += 1
+        if count != 0 and i >= count:
+            break
+    if count > i:
+        purchases_list.append(f'{i} of total {i} items displayed')
 
     context.update('block_title', 'Purchases')
     context.update('purchases', purchases_list)
