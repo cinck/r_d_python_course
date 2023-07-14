@@ -1,4 +1,5 @@
 from flask import abort, request, redirect, render_template, session
+# from sqlalchemy import select
 from app import app, db
 from opfuncs import *
 from sessioninfo import *
@@ -49,14 +50,19 @@ def get_user(user_id):
     if not context.user_name:       # <HW34> Task 3. Check for username in session and redirect to /login if not
         return redirect('/login')
 
-    if user_id % 2 != 0:
-        abort(404, 'Not found')
-    elif user_id:
-        u_name = {user_id: get_random_name()}
-        context.update('block_title', 'User')
-        context.update('usernames', u_name)
+    if user_id == 0:
+        abort(404, "ID can't be zero")
 
-        return render_template('users/users.html', **context.data), 200     # <HW34> Task 1. Template and context
+    u_data = db.session.execute(db.select(Users).where(Users.id == user_id)).scalar()
+    if u_data:
+        u_name = {u_data.id: f'{u_data.first_name} {u_data.last_name}, {u_data.age}'}
+    else:
+        abort(404, 'ID out of range')
+
+    context.update('block_title', 'User')
+    context.update('usernames', u_name)
+
+    return render_template('users/users.html', **context.data), 200    # <HW34> Task 1. Template and context
 
 
 # <HW33> Task 1. Function '-GET/books'
