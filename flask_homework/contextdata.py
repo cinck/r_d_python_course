@@ -29,7 +29,7 @@ class ContextBasic(ContextInit):
     Basic context class to generate general templated data
     """
 
-    pages = ['users', 'books', 'params', 'errors', 'login-logout']
+    pages = ['users', 'books', 'purchases', 'params', 'errors', 'login-logout']
 
     def __init__(self):
         super().__init__()
