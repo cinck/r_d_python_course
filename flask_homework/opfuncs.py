@@ -1,7 +1,8 @@
 from flask import request, abort
 from random import choice, randint
-from app import app
-from time import strftime, gmtime, localtime
+from app import app, db
+from db_models import *
+from time import strftime, gmtime, localtime, time
 
 
 def get_time_data(timestamp):
@@ -212,3 +213,24 @@ def validate_login(name: str, password: str) -> dict:
             status = True
             description = "Success"
     return {'status': status, 'description': description}
+
+
+def post_user():
+    first_name = request.form.get('first_name')
+    last_name = request.form.get('last_name')
+    try:
+        year = int(request.form.get('year'))
+    except ValueError:
+        year = 0
+    age = 2023 - year
+    print(first_name, last_name, year)
+    if not first_name or not last_name:
+        return False
+    user = Users(
+        first_name=first_name,
+        last_name=last_name,
+        age=age
+    )
+    db.session.add(user)
+    db.session.commit()
+    return True

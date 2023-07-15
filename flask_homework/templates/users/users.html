@@ -6,3 +6,22 @@
         <h4>{{ id }}. {{ name }}</h4>
         {% endfor %}
 {% endblock %}
+
+{% block add_record %}
+    <div class="container add-item">
+    <h3>Add new user</h3>
+        <form action="/users" method="POST">
+            <label for="first_name">First name:</label>
+            <input type="text" name="first_name" id="first_name" required>
+
+            <label for="last_name">Last name:</label>
+            <input type="text" name="last_name" id="last_name" required>
+
+            <label for="age">Year of birth:</label>
+            <input type="text" name="year" id="year" required>
+
+            <input type="submit" value="Submit">
+        </form>
+    <h5>{{ posted }}</h5>
+    </div>
+{% endblock %}

@@ -8,6 +8,12 @@ from db_models import *
 
 
 # <HW33> Task 1. Function '-GET/users'
+@app.post('/users')
+def p_user():
+    posted = post_user()
+    return redirect(f'/users/?post={posted}')
+
+
 @app.get('/users/')     # Doesn't work without / in the end ('/users'). Why?
 def get_users():
     """
@@ -34,6 +40,12 @@ def get_users():
 
     context.update('block_title', 'Users')
     context.update('usernames', usernames)
+    if request.values.get('post') == 'True':
+        context.update('posted', 'Record added')
+    elif request.values.get('post') == 'False':
+        context.update('posted', 'Failed to create')
+
+
 
     return render_template('users/users.html', **context.data), 200     # <HW34> Task 1. Template and context
 
