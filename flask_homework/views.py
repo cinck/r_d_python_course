@@ -9,7 +9,7 @@ from db_models import *
 
 # <HW33> Task 1. Function '-GET/users'
 @app.post('/users')
-def p_user():
+def post_users():
     posted = post_user()
     return redirect(f'/users/?post={posted}')
 
@@ -45,8 +45,6 @@ def get_users():
     elif request.values.get('post') == 'False':
         context.update('posted', 'Failed to create')
 
-
-
     return render_template('users/users.html', **context.data), 200     # <HW34> Task 1. Template and context
 
 
@@ -77,6 +75,12 @@ def get_user(user_id):
     return render_template('users/users.html', **context.data), 200    # <HW34> Task 1. Template and context
 
 
+@app.post('/books')
+def post_books():
+    posted = post_book()
+    return redirect(f'/books/?post={posted}')
+
+
 # <HW33> Task 1. Function '-GET/books'
 @app.get('/books/')
 def get_books():
@@ -103,6 +107,10 @@ def get_books():
 
     context.update('block_title', 'Books')
     context.update('book_list', book_list)
+    if request.values.get('post') == 'True':
+        context.update('posted', 'Record added')
+    elif request.values.get('post') == 'False':
+        context.update('posted', 'Failed to create')
 
     return render_template('books/books.html', **context.data), 200     # <HW34> Task 1. Template and context
 

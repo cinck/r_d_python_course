@@ -234,3 +234,22 @@ def post_user():
     db.session.add(user)
     db.session.commit()
     return True
+
+
+def post_book():
+    title = request.form.get('title')
+    author = request.form.get('author')
+    year = request.form.get('year')
+    price = request.form.get('price')
+    publisher_id = randint(1, 5)
+
+    book = Books(
+        title=title,
+        author=author,
+        year=year,
+        price=price,
+        publishing_house_id=publisher_id
+    )
+    db.session.add(book)
+    db.session.commit()
+    return True
