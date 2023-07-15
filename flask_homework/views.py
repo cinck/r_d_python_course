@@ -18,7 +18,7 @@ def get_users():
     if not context.user_name:       # <HW34> Task 3. Check for username in session and redirect to /login if not
         return redirect('/login')
 
-    count = get_count()     # <HW33> Task 7. /users and /books return requested amount of items by 'count' parameter
+    count = get_count()     # <HW35> Task 6. /users and /books return requested amount of items by 'size' parameter
 
     usernames = {}
     users = db.session.execute(db.select(Users)).scalars()
@@ -76,7 +76,7 @@ def get_books():
     if not context.user_name:       # <HW34> Task 3. Check for username in session and redirect to /login if not
         return redirect('/login')
 
-    count = get_count()     # <HW33> Task 7. /users and /books return requested amount of items by 'count' parameter
+    count = get_count()     # <HW35> Task 6. /users and /books return requested amount of items by 'size' parameter
 
     book_list = []
     books = db.session.execute(db.select(Books)).scalars()
@@ -137,28 +137,44 @@ def get_book(title: str):
     return render_template('books/books.html', **context.data), 200     # <HW34> Task 1. Template and context
 
 
+@app.get('/purchases/<int:purchase_id>')
 @app.get('/purchases')
-def get_purchases():
+def get_purchases(purchase_id: int = 0):
     context = ContextIndex(title='Purchases')
     if not context.user_name:
         return redirect('/login')
 
-    count = get_count()
-
-    purchases = db.session.execute(db.select(Purchases)).scalars()
-    purchases_list = []
-    i = 0
-    for item in purchases:
-        p_data = f'{item.id}. Customer#{item.user_id} bought book#{item.book_id}, {get_time_data(item.date)}'
-        purchases_list.append(p_data)
-        i += 1
-        if count != 0 and i >= count:
-            break
-    if count > i:
-        purchases_list.append(f'{i} of total {i} items displayed')
-
     context.update('block_title', 'Purchases')
-    context.update('purchases', purchases_list)
+
+    purchases_list = []
+
+    if purchase_id:             # <HW35> Task 7.
+        query = db.select(Purchases).join(Users).join(Books).where(Purchases.id == purchase_id)
+        p = db.session.execute(query).scalar()
+        if not p:
+            abort(404, 'No such item')
+        purchase = f"{p.user.first_name} {p.user.last_name} bought '{p.book.title}'"
+        context.update('block_title', f'Purchase #{p.id}')
+        context.update('purchase', purchase)
+    else:
+        count = get_count()
+
+        purchases = db.session.execute(db.select(Purchases).join(Users).join(Books)).scalars()
+
+        i = 0
+        for item in purchases:      # <HW35> Task 7.
+            p_data = f'''
+                #{item.id}# Customer {item.user.first_name} {item.user.last_name}
+                 bought book '{item.book.title}', {get_time_data(item.date)}
+                 '''
+            purchases_list.append(p_data)
+            i += 1
+            if count != 0 and i >= count:
+                break
+        if count > i:
+            purchases_list.append(f'{i} of total {i} items displayed')
+
+        context.update('purchases', purchases_list)
 
     return render_template('purchases/purchases.html', **context.data), 200
 
