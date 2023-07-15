@@ -1,5 +1,4 @@
 from flask import abort, request, redirect, render_template, session
-# from sqlalchemy import select
 from app import app, db
 from opfuncs import *
 from sessioninfo import *
@@ -7,13 +6,14 @@ from contextdata import *
 from db_models import *
 
 
-# <HW33> Task 1. Function '-GET/users'
+# <HW35> Task 8. Post methods
 @app.post('/users')
 def post_users():
     posted = post_user()
     return redirect(f'/users/?post={posted}')
 
 
+# <HW35> Task 5. Endpoint updated
 @app.get('/users/')     # Doesn't work without / in the end ('/users'). Why?
 def get_users():
     """
@@ -48,7 +48,7 @@ def get_users():
     return render_template('users/users.html', **context.data), 200     # <HW34> Task 1. Template and context
 
 
-# <HW33> Task 2. Function '-GET/users' + url-parameter
+# <HW35> Task 5. Endpoint updated
 @app.get('/users/<int:user_id>')
 def get_user(user_id):
     """
@@ -75,13 +75,14 @@ def get_user(user_id):
     return render_template('users/users.html', **context.data), 200    # <HW34> Task 1. Template and context
 
 
+# <HW35> Task 8. Post methods
 @app.post('/books')
 def post_books():
     posted = post_book()
     return redirect(f'/books/?post={posted}')
 
 
-# <HW33> Task 1. Function '-GET/books'
+# <HW35> Task 5. Endpoint updated
 @app.get('/books/')
 def get_books():
     """
@@ -115,6 +116,7 @@ def get_books():
     return render_template('books/books.html', **context.data), 200     # <HW34> Task 1. Template and context
 
 
+# <HW35> Task 5. Endpoint updated
 @app.get('/books/<int:book_id>')
 def get_book_by_id(book_id):
     context = ContextIndex(title='Books')
@@ -136,7 +138,7 @@ def get_book_by_id(book_id):
     return render_template('books/books.html', **context.data), 200
 
 
-# <HW33> Task 2. Function '-GET/books' + url-parameter
+# <HW35> Task 5. Endpoint updated
 @app.get('/books/<string:title>')
 def get_book(title: str):
     """
@@ -157,12 +159,14 @@ def get_book(title: str):
     return render_template('books/books.html', **context.data), 200     # <HW34> Task 1. Template and context
 
 
+# <HW35> Task 8. Post methods
 @app.post('/purchases')
 def post_purchases():
     posted = post_purchase()
     return redirect(f'/purchases?post={posted}')
 
 
+# <HW35> Task 5. Endpoint created
 @app.get('/purchases/<int:purchase_id>')
 @app.get('/purchases')
 def get_purchases(purchase_id: int = 0):
@@ -187,12 +191,12 @@ def get_purchases(purchase_id: int = 0):
         context.update('block_title', f'Purchase #{p.id}')
         context.update('purchase', purchase)
     else:
-        count = get_count()
+        count = get_count()         # <HW35> Task 6. Requested quantity of records
 
         purchases = db.session.execute(db.select(Purchases).join(Users).join(Books)).scalars()
 
         i = 0
-        for item in purchases:      # <HW35> Task 7.
+        for item in purchases:      # <HW35> Task 7. Detailed purchase info
             p_data = f'''
                 #{item.id}# Customer {item.user.first_name} {item.user.last_name}
                  bought book '{item.book.title}', {get_time_data(item.date)}(UTC)

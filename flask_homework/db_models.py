@@ -2,6 +2,7 @@ from app import db
 from time import time, asctime, gmtime, localtime
 
 
+# <HW35> Task 4. Database models
 class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String, nullable=False)

@@ -215,6 +215,7 @@ def validate_login(name: str, password: str) -> dict:
     return {'status': status, 'description': description}
 
 
+# <HW35> Task 8. Create new record in DB
 def post_user():
     first_name = request.form.get('first_name')
     last_name = request.form.get('last_name')
@@ -236,6 +237,7 @@ def post_user():
     return True
 
 
+# <HW35> Task 8. Create new record in DB
 def post_book():
     title = request.form.get('title')
     author = request.form.get('author')
@@ -255,6 +257,7 @@ def post_book():
     return True
 
 
+# <HW35> Task 8. Create new record in DB
 def post_purchase():
     user_id = request.form.get('user_id')
     book_id = request.form.get('book_id')
