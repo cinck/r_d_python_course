@@ -22,6 +22,7 @@ dictConfig({
 app = Flask(__name__)
 from views import *
 from ehandlers import *
+from sessioninfo import *
 
 
 # <HW32> Task 3: Endpoint returns HTML

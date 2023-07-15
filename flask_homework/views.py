@@ -1,6 +1,8 @@
-from flask import abort, request, redirect
+from flask import abort, request, redirect, render_template, session
 from app import app
 from random import choice, randint
+from sessioninfo import *
+from contextdata import *
 
 
 def get_random_name() -> str:
@@ -29,6 +31,13 @@ def get_random_name() -> str:
         "Willniev", "Waters", "Yangsted", "Yeden", "Yuong", "Zidane", "Zandaya", "Zacher"
     )
     return f"{choice(names)} {choice(surnames)}"
+
+
+def get_names_list(qty: int):
+    names_list = []
+    for _ in range(qty):
+        names_list.append(get_random_name())
+    return names_list
 
 
 def get_random_book() -> str:
@@ -167,23 +176,20 @@ def get_users():
     Returns HTML code with list of random amount of random names.
     :return:
     """
-    count = get_count()     # <HW33> Task 7. /users and /books return requested amount of items by 'count' parameter
-    logged_in = ""
-    if "login" in request.args.keys():
-        login_status = request.args['login']
-        logged_in = f'<h3>Login {login_status}</h3>'
-    usernames = []
-    for i in range(count):
-        usernames.append(f"<h4>{i + 1}. {get_random_name()}</h4>")
+    context = ContextIndex(title='Users')
+    if not context.user_name:       # <HW34> Task 3. Check for username in session and redirect to /login if not
+        return redirect('/login')
 
-    response = f'''
-        {logged_in}    
-        <div>
-        <h1>Users:</h1>
-        {"".join(usernames)}
-        </div>
-    '''
-    return response, 200
+    count = get_count()     # <HW33> Task 7. /users and /books return requested amount of items by 'count' parameter
+
+    usernames = {}
+    for i in range(count):
+        usernames[i+1] = get_random_name()
+
+    context.update('block_title', 'Users')
+    context.update('usernames', usernames)
+
+    return render_template('users/users.html', **context.data), 200     # <HW34> Task 1. Template and context
 
 
 # <HW33> Task 2. Function '-GET/users' + url-parameter
@@ -194,12 +200,18 @@ def get_user(user_id):
     :param user_id:
     :return:
     """
+    context = ContextIndex(title='Users')
+    if not context.user_name:       # <HW34> Task 3. Check for username in session and redirect to /login if not
+        return redirect('/login')
+
     if user_id % 2 != 0:
         abort(404, 'Not found')
     elif user_id:
-        user_name = get_random_name()
-        response = f'<div><h1>User #{user_id}:</h1><h4>{user_name}</h4></div>'
-        return response, 200
+        u_name = {user_id: get_random_name()}
+        context.update('block_title', 'User')
+        context.update('usernames', u_name)
+
+        return render_template('users/users.html', **context.data), 200     # <HW34> Task 1. Template and context
 
 
 # <HW33> Task 1. Function '-GET/books'
@@ -209,20 +221,18 @@ def get_books():
     Returns HTML lis of random quantity of random book names.
     :return:
     """
+    context = ContextIndex(title='Books')
+    if not context.user_name:       # <HW34> Task 3. Check for username in session and redirect to /login if not
+        return redirect('/login')
+
     count = get_count()     # <HW33> Task 7. /users and /books return requested amount of items by 'count' parameter
     book_list = []
     for i in range(count):
-        book_list.append(f'<li>{get_random_book()}</li>')
+        book_list.append(get_random_book())
+    context.update('block_title', 'Books')
+    context.update('book_list', book_list)
 
-    response = f'''
-        <div>
-            <ul>
-            <h1>Books:</h1>
-            {"".join(book_list)}
-            </ul>
-        </div>
-        '''
-    return response, 200
+    return render_template('books/books.html', **context.data), 200     # <HW34> Task 1. Template and context
 
 
 # <HW33> Task 2. Function '-GET/books' + url-parameter
@@ -233,13 +243,17 @@ def get_book(title: str):
     :param title:
     :return:
     """
-    response = f'''
-        <div>
-            <h1>Book title:</h1>
-            <h2>'{title.capitalize()}'</h2>
-        </div>
-        '''
-    return response, 200
+
+    context = ContextIndex(title='Books')
+    if not context.user_name:       # <HW34> Task 3. Check for username in session and redirect to /login if not
+        return redirect('/login')
+
+    book_list = [title.capitalize()]
+    context.update('title', 'Books')
+    context.update('block_title', 'Selected book')
+    context.update('book_list', book_list)
+
+    return render_template('books/books.html', **context.data), 200     # <HW34> Task 1. Template and context
 
 
 # <HW33> Task 3. Function '-GET/params'
@@ -249,21 +263,15 @@ def get_params():
     Returns HTML table of request parameters.
     :return:
     """
-    table_data = []
-    for param, value in request.args.items():
-        t_row = f'''
-        <tr><td>{param}</td><td>{value}</td></tr>
-        '''
-        table_data.append(t_row)
-    response = f'''
-        <table>
-            <tr><th>Parameter</th><th>Value</th></tr>
-            {''.join(table_data)}
-                
-        </table>    
-        '''
 
-    return response, 200
+    context = ContextIndex(title='Parameters')
+    if not context.user_name:       # <HW34> Task 3. Check for username in session and redirect to /login if not
+        return redirect('/login')
+
+    context.update('block_title', 'Accepted arguments')
+    context.update('args', request.args)
+
+    return render_template('params/params.html', **context.data), 200     # <HW34> Task 1. Template and context
 
 
 # <HW33> Task 8. Login validation.
@@ -314,31 +322,23 @@ def login():
     POST method redirects to '/users' if login data verified successfully or aborts with error code 400.
     :return:
     """
+    context = ContextInit()       # <HW34> Task 3. Check for username in session
+    if context.user_name:
+        return redirect('/')
     if request.method == 'GET':
-        response = f'''
-            <div>
-                <h1>Login</h1>
-                    <form action="/login" method="POST">
-                        <label for="name">Name:</label>
-                        <input type="text" name="name" id="name" required>
-                    
-                        <label for="password">Password:</label>
-                        <input type="password" name="password" id="password" required>
-                    
-                        <input type="submit" value="Submit">
-                    </form>
-            </div>
-            '''
-        return response
+        context.update('title', 'Login')
+        context.update('block_title', 'Login')
+        return render_template('login/login.html', **context.data), 200     # <HW34> Task 1. Template and context
+
     elif request.method == 'POST':
-        try:
-            user_name = request.form['name']
-            password = request.form['password']
-        except KeyError:
+        user_name = request.form.get('name')
+        password = request.form.get('password')
+        if not user_name or not password:
             abort(400, 'No data entered')
         validation = validate_login(user_name, password)    # <HW33> Task 8. Login validation.
         if validation['status']:
-            return redirect('/users?login=pass')
+            start_session(user_name)     # <HW34> Task 2. Adding username to session
+            return redirect('/users')
         else:
             abort(400, validation['description'])
 
@@ -363,22 +363,10 @@ def get_root_page():
     Returns HTML with links to other pages: '/login', '/users', '/books', '/params', '/errors'
     :return:
     """
-    pages = ['login', 'users', 'books', 'params', 'errors']
-    references = []
-    for i in pages:
-        references.append(
-            f"""
-            <a href='http://127.0.0.1:5000/{i}'>
-                <button style='padding: 5px; margin: 4px'>{i.capitalize()}</button>
-            </a>
-            """
-        )
-    response = f'''
-    <div style='padding: 5px'>
-        {"".join(references)}
-    </div>
-    <div style='padding: 5px'><a href='http://127.0.0.1:5000/hello'>Hello page</a></div>
-    <div style='padding: 5px'><a href='http://127.0.0.1:5000/json'>Return json</a></div>
-    <div style='padding: 5px'><a href='http://127.0.0.1:5000/html'>Return html</a></div>
-    '''
-    return response
+    context = ContextIndex('Homepage')
+    welcome_text = 'Welcome to homepage!'
+    if not context.user_name:
+        welcome_text = 'Welcome! Please login!'
+    context.update('welcome_text', welcome_text)
+
+    return render_template('index.html', **context.data)     # <HW34> Task 1. Template and context

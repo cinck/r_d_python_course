@@ -1,0 +1,36 @@
+/* <HW34> Task 5. Styles added */
+
+body {
+    background-color: #5c6581;
+    padding-top: 10px;
+}
+
+.homeLink {
+    color: darkblue;
+}
+
+th, td {
+    padding: 5px;
+}
+
+.homeLink {
+    padding: 5px;
+}
+
+.user-greeting {
+    padding: 5px;
+}
+
+.header {
+    background-color: #67c5ff;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.blockItem {
+    background-color: #feff7e;
+    padding: 10px;
+    border-radius: 10px;
+}
