@@ -157,6 +157,12 @@ def get_book(title: str):
     return render_template('books/books.html', **context.data), 200     # <HW34> Task 1. Template and context
 
 
+@app.post('/purchases')
+def post_purchases():
+    posted = post_purchase()
+    return redirect(f'/purchases?post={posted}')
+
+
 @app.get('/purchases/<int:purchase_id>')
 @app.get('/purchases')
 def get_purchases(purchase_id: int = 0):
@@ -165,6 +171,10 @@ def get_purchases(purchase_id: int = 0):
         return redirect('/login')
 
     context.update('block_title', 'Purchases')
+    if request.values.get('post') == 'True':
+        context.update('posted', 'Record added')
+    elif request.values.get('post') == 'False':
+        context.update('posted', 'Failed to create')
 
     purchases_list = []
 
@@ -185,7 +195,7 @@ def get_purchases(purchase_id: int = 0):
         for item in purchases:      # <HW35> Task 7.
             p_data = f'''
                 #{item.id}# Customer {item.user.first_name} {item.user.last_name}
-                 bought book '{item.book.title}', {get_time_data(item.date)}
+                 bought book '{item.book.title}', {get_time_data(item.date)}(UTC)
                  '''
             purchases_list.append(p_data)
             i += 1

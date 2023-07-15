@@ -7,7 +7,7 @@ from time import strftime, gmtime, localtime, time
 
 def get_time_data(timestamp):
     timestamp = str(timestamp)[:-3]
-    time_data = int(timestamp)
+    time_data = float(timestamp)
     return strftime("%d %b %Y %H:%M:%S", gmtime(time_data))
 
 
@@ -251,5 +251,22 @@ def post_book():
         publishing_house_id=publisher_id
     )
     db.session.add(book)
+    db.session.commit()
+    return True
+
+
+def post_purchase():
+    user_id = request.form.get('user_id')
+    book_id = request.form.get('book_id')
+    u_valid = db.session.execute(db.select(Users).where(Users.id == user_id)).scalar()
+    b_valid = db.session.execute(db.select(Books).where(Books.id == book_id)).scalar()
+    print(u_valid, b_valid)
+    if not u_valid or not b_valid:
+        return False
+    purchase = Purchases(
+        user_id=user_id,
+        book_id=book_id
+    )
+    db.session.add(purchase)
     db.session.commit()
     return True
