@@ -5,7 +5,12 @@ from db_models import *
 from time import strftime, gmtime, localtime, time
 
 
-def get_time_data(timestamp):
+def get_time_data(timestamp) -> str:
+    """
+    Returns string of time and date from timestamp formatted data taken from database.
+    :param timestamp: 13-charactered timestamp
+    :return:
+    """
     timestamp = str(timestamp)[:-3]
     time_data = float(timestamp)
     return strftime("%d %b %Y %H:%M:%S", gmtime(time_data))
@@ -216,7 +221,12 @@ def validate_login(name: str, password: str) -> dict:
 
 
 # <HW35> Task 8. Create new record in DB
-def post_user():
+def post_user() -> bool:
+    """
+    Creates new row in database table 'Users' from HTML form.
+    Returns True if all data available and False if not enough data entered
+    :return:
+    """
     first_name = request.form.get('first_name')
     last_name = request.form.get('last_name')
     try:
@@ -238,7 +248,12 @@ def post_user():
 
 
 # <HW35> Task 8. Create new record in DB
-def post_book():
+def post_book() -> bool:
+    """
+    Creates new row in database table 'Books' from HTML form.
+    Returns True if all data available and False if not enough data entered
+    :return:
+    """
     title = request.form.get('title')
     author = request.form.get('author')
     year = request.form.get('year')
@@ -258,7 +273,12 @@ def post_book():
 
 
 # <HW35> Task 8. Create new record in DB
-def post_purchase():
+def post_purchase() -> bool:
+    """
+    Creates new row in database table 'Purchases' from HTML form.
+    Returns True if all data available and False if not enough data entered
+    :return:
+    """
     user_id = request.form.get('user_id')
     book_id = request.form.get('book_id')
     u_valid = db.session.execute(db.select(Users).where(Users.id == user_id)).scalar()

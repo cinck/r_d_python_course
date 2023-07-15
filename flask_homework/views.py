@@ -9,6 +9,10 @@ from db_models import *
 # <HW35> Task 8. Post methods
 @app.post('/users')
 def post_users():
+    """
+    Appends record to 'Users' table in database
+    :return:
+    """
     posted = post_user()
     return redirect(f'/users/?post={posted}')
 
@@ -78,6 +82,10 @@ def get_user(user_id):
 # <HW35> Task 8. Post methods
 @app.post('/books')
 def post_books():
+    """
+    Appends record to 'Books' table in database
+    :return:
+    """
     posted = post_book()
     return redirect(f'/books/?post={posted}')
 
@@ -162,6 +170,10 @@ def get_book(title: str):
 # <HW35> Task 8. Post methods
 @app.post('/purchases')
 def post_purchases():
+    """
+    Appends record to 'Purchases' table in database
+    :return:
+    """
     posted = post_purchase()
     return redirect(f'/purchases?post={posted}')
 
@@ -170,6 +182,11 @@ def post_purchases():
 @app.get('/purchases/<int:purchase_id>')
 @app.get('/purchases')
 def get_purchases(purchase_id: int = 0):
+    """
+    Returns context and template data for endpoint 'purchases'
+    :param purchase_id:
+    :return:
+    """
     context = ContextIndex(title='Purchases')
     if not context.user_name:
         return redirect('/login')
