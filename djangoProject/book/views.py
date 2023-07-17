@@ -8,13 +8,3 @@ def json_books(request):
     if request.method == "GET":
         response_list = list(Book.objects.all().values())
         return JsonResponse(response_list, safe=False)
-
-
-def hello_(request):
-    return HttpResponse(
-        f"""
-        <div class='container'>
-        <h1>HELLO. It's {__name__} page!</h1>
-        <div>
-        """
-    )

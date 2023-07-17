@@ -9,13 +9,3 @@ def json_purchases(request):
         response_list = list(Purchase.objects.all().values())
 
         return JsonResponse(response_list, safe=False)
-
-
-def hello_(request):
-    return HttpResponse(
-        f"""
-        <div class='container'>
-        <h1>HELLO. It's {__name__} page!</h1>
-        <div>
-        """
-    )
