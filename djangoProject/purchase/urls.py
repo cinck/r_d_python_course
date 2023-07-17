@@ -4,5 +4,5 @@ from purchase import views
 
 
 urlpatterns = [
-    path('', views.hello_)
+    path('', views.json_purchases)
 ]
