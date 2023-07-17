@@ -10,3 +10,4 @@ class Purchase(models.Model):
 
     class Meta:
         db_table = 'purchases'
+        ordering = '-date'          # <HW37> Task 5. Sorting in ascending order

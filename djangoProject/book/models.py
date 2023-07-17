@@ -11,3 +11,4 @@ class Book(models.Model):
 
     class Meta:
         db_table = 'Books'
+        unique_together = ['title', 'author']   # <HW37> Task 5. Unique title-author combination
