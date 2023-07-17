@@ -2,7 +2,7 @@ from user.models import User
 from django.http import HttpResponse, JsonResponse
 
 
-def json_purchases(request):
+def json_users(request):
     if request.method == "GET":
         response_list = list(User.objects.all().values())
 
