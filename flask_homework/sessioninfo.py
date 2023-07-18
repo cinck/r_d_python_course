@@ -1,8 +1,6 @@
 from flask import redirect, session
 from app import app
 
-app.secret_key = b"secret_key"
-
 
 # <HW34> Task 2. Adding username to session
 def start_session(name: str):
@@ -11,9 +9,13 @@ def start_session(name: str):
 
 
 def verify_session():
+    try:
+        username = session['name']
+    except KeyError:
+        return None
     if not session['name']:
         return None
-    return session['name']
+    return username
 
 
 # <HW34> Task 4. /logout endpoint

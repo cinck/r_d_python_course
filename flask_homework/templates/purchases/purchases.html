@@ -1,0 +1,31 @@
+{% extends "index.html" %}
+
+{% block blockitem %}
+    <h1>{{ block_title }}:</h1>
+    {% if purchase %}
+    <h4>{{ purchase }}</h4>
+    {% else %}
+    <ul>
+    {% for item in purchases %}
+        <li>{{ item }}</li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+
+{% endblock %}
+
+{% block add_record %}
+    <div class="container add-item">
+    <h3>Add purchase</h3>
+        <form action="/purchases" method="POST">
+            <label for="user_id">User ID:</label>
+            <input type="number" name="user_id" id="user_id" required>
+
+            <label for="book_id">Book ID:</label>
+            <input type="number" name="book_id" id="book_id" required>
+
+            <input type="submit" value="Submit">
+        </form>
+    <h5>{{ posted }}</h5>
+    </div>
+{% endblock %}
