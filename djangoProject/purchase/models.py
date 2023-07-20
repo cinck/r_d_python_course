@@ -8,8 +8,11 @@ class Purchase(models.Model):
     id = models.IntegerField(unique=True, primary_key=True)
     date = models.DateTimeField(auto_now_add=True, null=False)
     user = models.ForeignKey(User, related_name='purchases', on_delete=models.CASCADE)
-    book = models.ForeignKey(Book, related_name='books', on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, related_name='purchases', on_delete=models.CASCADE)
 
     class Meta:
         db_table = 'purchases'
         ordering = ['-date']          # <HW37> Task 5. Sorting in ascending order
+
+    def __str__(self):
+        return f"{self.id}: {self.user.username} {self.book.title}({self.book.year})"
