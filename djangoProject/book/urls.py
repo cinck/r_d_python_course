@@ -4,6 +4,6 @@ from book import views
 
 
 urlpatterns = [
-    path('', views.json_books),
-
+    path('', views.BookListView.as_view(), name='books-list'),
+    path('<int:pk>', views.BookDetailView.as_view(), name='book-detail')
 ]
