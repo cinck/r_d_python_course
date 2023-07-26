@@ -1,0 +1,12 @@
+{% extends "index.html" %}
+
+{% block content %}
+<h1>Users:</h1>
+
+    {% for user in users %}
+        <h4>{{ user.id }}. <a href="/user/{{ user.id }}">{{ user.username }}</a></h4>
+    {% endfor %}{% endblock %}
+
+{% block controls %}
+    <a href="/user/create"><button class="button btn btn-success">Add user</button></a>
+{% endblock %}
