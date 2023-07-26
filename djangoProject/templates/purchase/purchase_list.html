@@ -1,15 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Purchases</title>
-</head>
-<body>
-<h1>Purchases</h1>
-<ul>
-{% for p in purchases %}
-    <p><a href="/purchase/{{ p.id }}">{{ p.date }}</a> {{ p.user.username }} bought book#{{ p.book.id }}</p>
-{% endfor %}
-</ul>
-</body>
-</html>
+{% extends "index.html" %}
+
+{% block content %}
+    <h1>Purchases</h1>
+    <ul>
+        {% for p in purchases %}
+            <p><a href="/purchase/{{ p.id }}">{{ p.date }} {{ p }}</a></p>
+        {% endfor %}
+    </ul>
+{% endblock %}
+{% block controls %}
+    <a href="/purchase/create"><button class="button btn btn-success">Add purchase</button></a>
+{% endblock %}
