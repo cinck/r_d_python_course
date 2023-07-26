@@ -4,5 +4,7 @@ from purchase import views
 
 
 urlpatterns = [
-    path('', views.json_purchases)
+    path('', views.PurchaseListView.as_view(), name='purchase-list'),
+    path('<int:pk>', views.PurchaseDetailView.as_view(), name='purchase-detail'),
+    path('create/', views.PurchaseCreateView.as_view(), name='purchase-create'),
 ]
