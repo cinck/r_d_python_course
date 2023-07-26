@@ -1,15 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Books</title>
-</head>
-<body>
-<h1>Books</h1>
+{% extends "index.html" %}
+{% block content %}
+    <h1>Books</h1>
 <ul>
 {% for book in books %}
     <li>{{ book.id }}. <a href="/book/{{ book.id }}">{{ book.title }}</a> by {{ book.author }}</li>
 {% endfor %}
 </ul>
-</body>
-</html>
+{% endblock %}
+{% block controls %}
+    <a href="/book/create"><button class="button btn btn-success">Add book</button></a>
+{% endblock %}
