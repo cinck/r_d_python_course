@@ -23,7 +23,7 @@ class PurchaseCreateView(CreateView):
     model = Purchase
     context_object_name = 'purchase'
     fields = ('book', 'user')
-    success_url = reverse_lazy('purchase-list')
+    success_url = reverse_lazy('purchase:purchase-list')
 
 # <HW37> Task 4. JSON response
 def json_purchases(request):

@@ -23,5 +23,5 @@ class BookCreateView(CreateView):
     model = Book
     context_object_name = 'book'
     fields = ('title', 'author', 'year', 'price')
-    success_url = reverse_lazy('books-list')
+    success_url = reverse_lazy('book:books-list')
 

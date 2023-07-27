@@ -2,6 +2,7 @@
 from django.urls import path
 from purchase import views
 
+app_name = 'purchase'
 
 urlpatterns = [
     path('', views.PurchaseListView.as_view(), name='purchase-list'),

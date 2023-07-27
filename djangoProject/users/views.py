@@ -23,5 +23,5 @@ class UsersCreateView(CreateView):
     model = User
     context_object_name = 'user'
     form_class = CustomUserCreationForm
-    success_url = reverse_lazy('users-list')
+    success_url = reverse_lazy('users:users-list')
 
