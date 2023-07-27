@@ -6,4 +6,3 @@ from purchase.models import Purchase
 @admin.register(Purchase)
 class PurchaseAdmin(admin.ModelAdmin):
     list_display = ("pk", "date", "user", "book")
-    pass
