@@ -6,6 +6,8 @@ from book.models import Book
 from django.http import HttpResponse, JsonResponse, Http404
 from django.shortcuts import render
 
+from book.serializers import BookSerializer
+
 
 class BookListView(ListView):
     template_name = 'book/book_list.html'
@@ -27,6 +29,6 @@ class BookCreateView(CreateView):
     success_url = reverse_lazy('book:books-list')
 
 
-class BookViewSet(viewsets.ModelViewvSet):
-    queryset = Book.objects.all()
-    
+# class BookViewSet(viewsets.ModelViewvSet):
+#     queryset = Book.objects.all()
+#     serializer_class = BookSerializer

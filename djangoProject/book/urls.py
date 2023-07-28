@@ -6,12 +6,12 @@ from rest_framework import routers
 
 app_name = 'book'
 
-router = routers.SimpleRouter()
-router.register('', views.BookViewSet)
+# router = routers.SimpleRouter()
+# router.register('', views.BookViewSet)
 
 urlpatterns = [
     path('', views.BookListView.as_view(), name='books-list'),
     path('<int:pk>', views.BookDetailView.as_view(), name='book-detail'),
     path('create/', views.BookCreateView.as_view(), name='book-create'),
-    path('', include(router.urls))
+    # path('', include(router.urls))
 ]
