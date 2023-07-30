@@ -1,0 +1,9 @@
+{% extends "purchase/purchase_list.html" %}
+
+{% block content %}
+    <h1>Purchase {{ purchase.id }} details:</h1>
+    <h2>Book title: <a href="/book/{{ purchase.book.id }}">{{ purchase.book.title }}</a></h2>
+    <h2>User: <a href="/users/{{ purchase.user.id }}">{{ purchase.user.username }}</a></h2>
+    <h3>Price: {{ purchase.book.price }} UAH</h3>
+    <h3>Time: {{ purchase.date }}</h3>
+{% endblock %}

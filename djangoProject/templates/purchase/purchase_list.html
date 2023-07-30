@@ -1,0 +1,13 @@
+{% extends "index.html" %}
+
+{% block content %}
+    <h1>Purchases</h1>
+    <ul>
+        {% for p in purchases %}
+            <p><a href="/purchase/{{ p.id }}">{{ p.date }} {{ p }}</a></p>
+        {% endfor %}
+    </ul>
+{% endblock %}
+{% block controls %}
+    <a href="/purchase/create"><button class="button btn btn-success">Add purchase</button></a>
+{% endblock %}

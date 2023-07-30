@@ -1,10 +1,27 @@
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView
+
+from custom_forms.forms import CustomUserCreationForm
 from users.models import User
 from django.http import HttpResponse, JsonResponse
 
 
-# <HW37> Task 4. JSON response
-def json_users(request):
-    if request.method == "GET":
-        response_list = list(User.objects.all().values())
+class UsersListView(ListView):
+    template_name = 'users/users_list.html'
+    model = User
+    context_object_name = 'users'
 
-        return JsonResponse(response_list, safe=False)
+
+class UsersDetailView(DetailView):
+    template_name = 'users/users_detail.html'
+    model = User
+    context_object_name = 'user'
+
+
+class UsersCreateView(CreateView):
+    template_name = 'users/users_create.html'
+    model = User
+    context_object_name = 'user'
+    form_class = CustomUserCreationForm
+    success_url = reverse_lazy('users:users-list')
+

@@ -1,0 +1,12 @@
+{% extends "index.html" %}
+{% block content %}
+    <h1>Books</h1>
+<ul>
+{% for book in books %}
+    <li>{{ book.id }}. <a href="/book/{{ book.id }}">{{ book.title }}</a> by {{ book.author }}</li>
+{% endfor %}
+</ul>
+{% endblock %}
+{% block controls %}
+    <a href="/book/create"><button class="button btn btn-success">Add book</button></a>
+{% endblock %}

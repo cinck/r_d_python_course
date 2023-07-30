@@ -1,0 +1,9 @@
+{% extends "book/book_list.html" %}
+
+{% block content %}
+    <h1>Book {{ book.id }} details:</h1>
+    <h2>Title: {{ book.title }}</h2>
+    <h3>Author: {{ book.author }}</h3>
+    <h3>Year: {{ book.year }}</h3>
+    <h3>Price: {{ book.price }} UAH</h3>
+{% endblock %}

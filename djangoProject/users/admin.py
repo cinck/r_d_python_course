@@ -6,4 +6,3 @@ from django.contrib.auth.admin import UserAdmin
 @admin.register(get_user_model())
 class CustomUserAdmin(UserAdmin):
     list_display = ("id", "username", "first_name", "last_name", "email", "age", "is_staff")
-    pass

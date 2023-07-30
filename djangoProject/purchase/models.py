@@ -15,4 +15,4 @@ class Purchase(models.Model):
         ordering = ['-date']          # <HW37> Task 5. Sorting in ascending order
 
     def __str__(self):
-        return f"{self.id}: {self.user.username} {self.book.title}({self.book.year})"
+        return f"{self.id}: {self.user.username} bought {self.book.title}({self.book.year})"
