@@ -150,3 +150,9 @@ REST_FRAMEWORK = {
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 
+CELERY_BEAT_SCHEDULE = {
+    'print_users_qty_every_minute': {  # A unique name for this task
+        'task': 'users.tasks.users_qty',  # Import path for the task
+        'schedule': 60.0,  # Run every 60 seconds
+    },
+}
