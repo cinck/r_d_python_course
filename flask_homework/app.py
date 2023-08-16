@@ -7,7 +7,7 @@ from config import AppConfigData
 db = SQLAlchemy()
 app = Flask(__name__)
 app.logger.setLevel(logging.INFO)
-app.config.from_object(AppConfigData)  # todo HOST and PORT don't change for some reason
+app.config.from_object(AppConfigData)
 db.init_app(app)
 from db_models import *
 from sessioninfo import *
