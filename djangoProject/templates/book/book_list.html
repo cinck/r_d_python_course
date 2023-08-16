@@ -3,7 +3,7 @@
     <h1>Books</h1>
 <ul>
 {% for book in books %}
-    <li>{{ book.id }}. <a href="/book/{{ book.id }}">{{ book.title }}</a> by {{ book.author }}</li>
+    <li>{{ book.pk }}. <a href="/book/{{ book.pk }}">{{ book.title }}</a> by {{ book.author }}</li>
 {% endfor %}
 </ul>
 {% endblock %}
