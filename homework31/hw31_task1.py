@@ -32,7 +32,7 @@ def show_response_from(url: str):
     :return:
     """
     print(url)
-    response = get_response_from(url)
+    response = get_response_from_url(url)
     if not response:
         print("Failed to connect")
     else:
