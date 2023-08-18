@@ -1,5 +1,5 @@
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, DeleteView
 
 from custom_forms.forms import CustomUserCreationForm
 from users.models import User
@@ -25,3 +25,8 @@ class UsersCreateView(CreateView):
     form_class = CustomUserCreationForm
     success_url = reverse_lazy('users:users-list')
 
+
+class UserDeleteView(DeleteView):
+    model = User
+    context_object_name = 'user'
+    success_url = reverse_lazy('users:users-list')
