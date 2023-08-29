@@ -7,5 +7,5 @@ class PurchaseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Purchase
-        fields = ('date', 'user', 'book')
-        read_only_fields = ('date',)
+        fields = ('id', 'date', 'user', 'book')
+        read_only_fields = ('id', 'date',)
