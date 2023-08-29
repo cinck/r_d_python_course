@@ -7,3 +7,6 @@
     <h4>Last name: {{ user.last_name }}</h4>
     <h4>Age: {{ user.age }}</h4>
 {% endblock %}
+{% block controls %}
+    <a href="/user/{{ user.pk }}/delete"><button class="button btn btn-success">Delete user</button></a>
+{% endblock %}
