@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'users.apps.UsersConfig',
     'book.apps.BookConfig',
     'purchase.apps.PurchaseConfig',
@@ -133,3 +134,6 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.User'
+
+# DRF config
+REST_FRAMEWORK = {}
