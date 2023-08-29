@@ -32,7 +32,9 @@ SECRET_KEY = os.getenv('SECRET_KEY')    # <HW36> Task 4. Custom settings
 DEBUG = os.getenv('DEBUG') == 'True'    # <HW36> Task 4. Custom settings
 
 ALLOWED_HOSTS = [
-    os.getenv('HOST')       # <HW36> Task 4. Custom settings
+    os.getenv('HOST'),      # <HW36> Task 4. Custom settings
+    'localhost',
+    '0.0.0.0'
 ]
 
 
@@ -89,8 +91,13 @@ WSGI_APPLICATION = 'djangoProject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / os.getenv('DATABASE'),   # <HW36> Task 4. Custom settings
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',   # <HW36> Task 4. Custom settings
+        'USER': 'postgresuser',
+        'PASSWORD': 'postgrespass',
+        'HOST': 'db',
+        'PORT': '5432'
+
     }
 }
 
@@ -147,8 +154,8 @@ REST_FRAMEWORK = {
 
 
 # Celery settings
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
 
 CELERY_BEAT_SCHEDULE = {
     'print_users_qty_every_minute': {  # A unique name for this task

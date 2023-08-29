@@ -4,7 +4,7 @@
     <h1>Purchases</h1>
     <ul>
         {% for p in purchases %}
-            <p><a href="/purchase/{{ p.id }}">{{ p.date }} {{ p }}</a></p>
+            <p><a href="/purchase/{{ p.pk }}">{{ p.date }} {{ p }}</a></p>
         {% endfor %}
     </ul>
 {% endblock %}
