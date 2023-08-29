@@ -1,6 +1,5 @@
-from flask import redirect, session
-from app import app
 from sessioninfo import *
+from config import AppConfigData as config
 
 # <HW34> Task 1. Context for templates.
 
@@ -12,6 +11,7 @@ class ContextInit:
     def __init__(self):
         self.user_name = verify_session()
         self.data = {'user_name': self.user_name}
+        self.root_url = f'{config.HOST}:{config.PORT}'
 
     def update(self, var_name: str, value):
         """
@@ -21,6 +21,7 @@ class ContextInit:
         :return:
         """
         self.data[var_name] = value
+        self.data['root_url'] = self.root_url
 
 
 class ContextBasic(ContextInit):
@@ -28,7 +29,7 @@ class ContextBasic(ContextInit):
     Basic context class to generate general templated data
     """
 
-    pages = ['users', 'books', 'params', 'errors', 'hello', 'json', 'html', 'login-logout']
+    pages = ['users', 'books', 'purchases', 'params', 'errors', 'login-logout']
 
     def __init__(self):
         super().__init__()
@@ -50,5 +51,3 @@ class ContextIndex(ContextBasic):
         super().__init__()
 
         self.data['title'] = title
-
-
